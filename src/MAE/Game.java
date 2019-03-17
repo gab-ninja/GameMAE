@@ -16,10 +16,22 @@ public class Game {
 	public void startGame() {
 		
 	}
+	
+	private Character[] convertInt2Heroes(int[] arr) {
+		Character[] characters = new Character[arr.length];
+		for (int i=0; i<arr.length; i++) {
+			characters[i] = heroes.get(arr[i]);
+		}
+		return characters;
+	}
 
 	public Game() {
 		super();
 		this.readCharacters();
+		PlayerInterface gameInterface = new PlayerInterface();
+		int[] numbersChosen = gameInterface.pickHeroes(heroes);
+		Human human = new Human(this.convertInt2Heroes(numbersChosen));
+		
 		
 	}
 	

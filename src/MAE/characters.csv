@@ -3,8 +3,8 @@ hero,Iktotchi,Warrior,700,160,190
 hero,Lasat,Warrior,750,150,170
 hero,Gotal,Paladin,1000,90,100
 hero,Nautolan,Paladin,960,70,120
-hero,Ugnaughts,Cleric,300,50,70
-hero,Jawa,Cleric,220,60,90
+hero,Ugnaughts,Cleric,300,-50,-70
+hero,Jawa,Cleric,220,-60,-90
 hero,Duros,Assassin,400,200,220
 hero,Gungan,Assassin,430,190,210
 specialHero,Nikto,Rogue,280,150,165

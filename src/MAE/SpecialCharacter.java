@@ -8,10 +8,10 @@ public class SpecialCharacter extends Character {
 	}
 	
 	public void specialAttack() {
-		switch (this.category) {
-		case "Rogue":
-			break;
-		}
+//		switch (this.category) {
+//		case "Rogue":
+//			break;
+//		}
 	}
 
 };
