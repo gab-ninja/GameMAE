@@ -3,40 +3,35 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
 
-
 public class Game {
 	
 	private ArrayList <Character> heroes = new ArrayList<Character>();
 	private ArrayList <Character> monsters = new ArrayList<Character>();
 
-	public Player[] player;
-
-	public PlayerInterface playerinterface;
-
-	public void startGame() {
-		
-	}
+	private PlayerInterface gameInterface;
+	private Human human;
+	private Computer cpu;
 	
-	private Character[] convertInt2Heroes(int[] arr) {
-		Character[] characters = new Character[arr.length];
-		for (int i=0; i<arr.length; i++) {
-			characters[i] = heroes.get(arr[i]);
-		}
-		return characters;
-	}
-
+	private static ArrayUtils arr= new ArrayUtils();
+	
 	public Game() {
 		super();
 		this.readCharacters();
-		PlayerInterface gameInterface = new PlayerInterface();
+	}
+
+	public void startGame() {
+		this.gameInterface = new PlayerInterface();
+		
 		int[] numbersChosen = gameInterface.pickHeroes(heroes);
-		Human human = new Human(this.convertInt2Heroes(numbersChosen));
+		this.human = new Human(this.convertInt2Character(numbersChosen, true));
 		
+		int[] cpuTeam = arr.randomNonRepetitive(4, monsters.size());
+		this.cpu = new Computer(this.convertInt2Character(cpuTeam, false));
 		
+		gameInterface.showStats(human.getCharacters(), cpu.getCharacters());
 	}
 	
 	public void readCharacters()  {
-		
 		try {
 			String cwd = new File("").getAbsolutePath();
 	        Scanner scanner = new Scanner(new File(cwd + "/src/MAE/characters.csv"));
@@ -63,4 +58,16 @@ public class Game {
 			e.printStackTrace();
 		}
     }
+	
+	private ArrayList <Character> convertInt2Character(int[] arr, boolean isHero) {
+		ArrayList <Character> characters = new ArrayList<Character>();
+		for (int i=0; i<arr.length; i++) {
+			if (isHero) {
+				characters.add(heroes.get(arr[i]));
+			} else {
+				characters.add(monsters.get(arr[i]));
+			}
+		}
+		return characters;
+	}
 };

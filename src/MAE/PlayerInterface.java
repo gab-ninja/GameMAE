@@ -9,7 +9,16 @@ public class PlayerInterface {
 	public void beginGame() {
 	}
 
-	public void showStats() {
+	public void showStats(ArrayList <Character> heroes, ArrayList <Character> monsters) {
+		System.out.println("-----------------------------------------------------------------------------------");
+		for (int i=0; i < heroes.size(); i++) {
+			if (i < monsters.size()) {
+				System.out.printf("| %s \t| %s \t |\n", heroes.get(i).toString(), monsters.get(i).toString());
+			} else {
+				System.out.printf("| %s \t| \t\t\t\t \t |\n", heroes.get(i).toString());
+			}
+		}
+		System.out.println("-----------------------------------------------------------------------------------");
 	}
 
 	public void attack() {
@@ -30,7 +39,7 @@ public class PlayerInterface {
 			}
 			System.out.println("Pick an hero, " + (5-i) + " left");
 			choice = scanner.nextInt();
-			if(arr.contains(heroesChoice, choice)) {
+			if(arr.contains(heroesChoice, choice) || choice > (heroes.size()-1) || choice < 0) {
 				System.out.println("Character already taken, please chose another one");
 				i--;
 			} else {

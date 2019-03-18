@@ -58,10 +58,16 @@ class Character {
 
 	@Override
 	public String toString() {
-		return name + " (" + category + ")\t" + health + "/" + healthMax + " HP";
+		if (category.toString().length() +  name.length() < 10) {
+			return name + " (" + category + ") \t\t" + health + "/" + healthMax + " HP";
+		}
+		return name + " (" + category + ") \t" + health + "/" + healthMax + " HP";
 	}
 	
 	public String stats() {
+		if (category.toString().length() +  name.length() < 18) {
+			return name + " (" + category + ")\t\t" + healthMax + "\t" + attackMin + "/" + attackMax;
+		}
 		return name + " (" + category + ")\t" + healthMax + "\t" + attackMin + "/" + attackMax;
 	}
 	

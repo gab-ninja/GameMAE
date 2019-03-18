@@ -1,11 +1,12 @@
 package MAE;
+import java.util.*;
 
+import MAE.Character;
 
 public class Computer extends Player {
 
-	public Computer(Character[] characters) {
+	public Computer(ArrayList<Character> characters) {
 		super(characters);
-		// TODO Auto-generated constructor stub
 	}
 
 	public void play() {

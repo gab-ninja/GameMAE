@@ -1,18 +1,20 @@
 package MAE;
-
+import java.util.*;
 
 public class Human extends Player {
-
-	public Human(Character[] characters) {
+	private String name;
+	
+	public Human(ArrayList<Character> characters) {
 		super(characters);
-		System.out.println(this.characters[0].toString());
-		System.out.println(this.characters[1].toString());
-		System.out.println(this.characters[2].toString());
-		System.out.println(this.characters[3].toString());
-		System.out.println(this.characters[4].toString());
 	}
 
-	private String name;
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 
 	public void attack() {
 	}
