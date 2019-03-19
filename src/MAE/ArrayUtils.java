@@ -17,7 +17,7 @@ public class ArrayUtils {
 		}
 		int randNum;
 		for (int i=0; i<nElements; i++) {
-			randNum = (int) Math.floor(Math.random() * Math.floor(elMax));
+			randNum = (int) Math.floor(Math.random() * elMax);
 			if(!this.contains(arr, randNum)) {
 				arr[i] = randNum;
 			} else {

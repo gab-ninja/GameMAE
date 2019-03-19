@@ -24,6 +24,17 @@ public class Player {
 	public ArrayList<Character> getCharacters() {
 		return characters;
 	}
+	
+	public ArrayList<Character> getCharactersAlive() {
+		ArrayList <Character> charactersAlive = new ArrayList<Character>();
+		charactersAlive.addAll(this.characters);
+		charactersAlive.removeIf(s -> !s.isAlive());
+		return charactersAlive;
+	}
+	
+	public boolean hasCharactersAlive() {
+		return this.characters.stream().anyMatch(e -> e.isAlive());
+	}
 
 	
 	
