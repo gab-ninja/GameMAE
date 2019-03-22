@@ -35,7 +35,9 @@ public class Player {
 	public boolean hasCharactersAlive() {
 		return this.characters.stream().anyMatch(e -> e.isAlive());
 	}
-
 	
+	public void healCharacters ()  {
+		this.characters.forEach(character ->  character.heal());
+	}
 	
 };

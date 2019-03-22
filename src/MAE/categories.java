@@ -13,5 +13,8 @@ public enum categories {
 	Defender,
 	Spider,
 	Mummy,
-	Slime;
+	Slime,
+	Avenger,
+	Hamish,
+	Karim;
 };

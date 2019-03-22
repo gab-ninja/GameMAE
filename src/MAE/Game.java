@@ -26,7 +26,28 @@ public class Game {
 		int[] numbersChosen = gameInterface.pickHeroes(heroes);
 		this.human = new Human(this.convertInt2Character(numbersChosen, true));
 		
-		int[] cpuTeam = arr.randomNonRepetitive(4, monsters.size());
+		boolean result = false;
+		
+		for (int i=1; i<=5; i++) {
+			 result = level(i);
+			if (result == false) {
+				break;
+			}
+			this.human.healCharacters();
+			this.cpu.healCharacters();
+		}
+		
+		gameInterface.closeGame(result);
+	}
+	
+	public boolean level(int level) {
+		int numOfMonsters = 3;
+		if (level > 2) {
+			numOfMonsters = 4;
+		}
+		gameInterface.showLevel(level);
+		
+		int[] cpuTeam = arr.randomNonRepetitive(numOfMonsters, monsters.size());
 		this.cpu = new Computer(this.convertInt2Character(cpuTeam, false));
 		
 		gameInterface.showStats(human.getCharacters(), cpu.getCharacters());
@@ -34,19 +55,14 @@ public class Game {
 		order.addAll(this.human.getCharacters());
 		order.addAll(this.cpu.getCharacters());
 		
-		boolean isPlaying = true;
-		while (isPlaying) {
+		while (true) {
 			Collections.shuffle(this.order);
 			for (Character character : order) {
 				if (!human.hasCharactersAlive()) {
-					//Human lost
-					isPlaying = false;
-					break;
+					return false;
 				}
 				if (!cpu.hasCharactersAlive()) {
-					isPlaying = false;
-					break;
-					//CPU lost
+					return true;
 				}
 				if (character.canPlay()) {
 					if (character.isMonster()) {
@@ -58,7 +74,7 @@ public class Game {
 				}
 			}
 		}
-		gameInterface.closeGame();
+		
 	}
 	
 	public void playerAttack(Character character) {

@@ -11,6 +11,12 @@ public class PlayerInterface {
 
 	public void beginGame() {
 	}
+	
+	public void showLevel(int level) {
+		System.out.println("-----------------------------------------------------------------------------------");
+		System.out.printf("\t LEVEL: %d  \n", level);
+		System.out.println("-----------------------------------------------------------------------------------");
+	}
 
 	public void showStats(ArrayList <Character> heroes, ArrayList <Character> monsters) {
 		System.out.println("-----------------------------------------------------------------------------------");
@@ -24,8 +30,13 @@ public class PlayerInterface {
 		System.out.println("-----------------------------------------------------------------------------------");
 	}
 	
-	public void closeGame() {
+	public void closeGame(boolean result) {
 		this.scanner.close();
+		if (result) {
+			System.out.println("You Won :)");
+		} else {
+			System.out.println("You Lost :(");
+		}
 	}
 	
 	public void showAttack(int damage, Character attacker, Character defender) {
@@ -48,17 +59,17 @@ public class PlayerInterface {
 		}
 		int choice = -1;
 		while(choice < 0 || choice > toAttack.size()) {
-			System.out.printf("Insert an integer number between 0 and %d\n", toAttack.size());
+			System.out.printf("Insert an integer number between 0 and %d\n", toAttack.size()-1);
 			choice = this.scanner.nextInt();			
 		}
 		return toAttack.get(choice);
 	}
 
 	public int[] pickHeroes(ArrayList <Character> heroes) {
-		int[] heroesChoice = {-1, -1, -1, -1, -1};
+		int[] heroesChoice = {-1, -1, -1, -1};
 		ArrayUtils arr= new ArrayUtils();
 		int choice;
-		for (int i=0; i<5; i++) {
+		for (int i=0; i<4; i++) {
 			for (int j=0; j< heroes.size(); j++) {
 				if (arr.contains(heroesChoice, j)) {
 					continue;
@@ -66,7 +77,7 @@ public class PlayerInterface {
 				System.out.printf("%d: %s \n", j, heroes.get(j).stats());
 				
 			}
-			System.out.println("Pick an hero, " + (5-i) + " left");
+			System.out.println("Pick an hero, " + (4-i) + " left");
 			choice = this.scanner.nextInt();
 			if(arr.contains(heroesChoice, choice) || choice > (heroes.size()-1) || choice < 0) {
 				System.out.println("Character already taken, please chose another one");

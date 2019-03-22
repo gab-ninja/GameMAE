@@ -60,7 +60,7 @@ class Character {
 	}
 
 	public void heal() {
-		if (this.health == 0) {
+		if (this.health == 0 && !this.isMonster) {
 			this.health = this.healthMax / 4;
 		} else {
 			this.health = this.healthMax;
