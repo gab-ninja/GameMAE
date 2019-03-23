@@ -32,6 +32,20 @@ public class Player {
 		return charactersAlive;
 	}
 	
+	public ArrayList<Character> getCharactersToAttack() {
+		ArrayList <Character> charactersToAttack = new ArrayList<Character>();
+		charactersToAttack = this.getCharactersAlive();
+		int listSize = charactersToAttack.size();
+		for (int i=0; i < listSize; i++) {
+			if (charactersToAttack.get(i).isDefender()) {
+				charactersToAttack.add(i, charactersToAttack.get(i));
+				i++;
+				listSize ++;
+			}
+		}
+		return charactersToAttack;
+	}
+	
 	public boolean hasCharactersAlive() {
 		return this.characters.stream().anyMatch(e -> e.isAlive());
 	}

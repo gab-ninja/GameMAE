@@ -6,7 +6,7 @@ public class PlayerInterface {
 	Scanner scanner = new Scanner(System.in);
 	
 	public PlayerInterface() {
-		System.out.println("Game started...");
+		System.out.println("Mists of the Abandoned Etherdungeon!!! Game started...");
 	}
 
 	public void beginGame() {
@@ -35,12 +35,23 @@ public class PlayerInterface {
 		System.out.println(result ? "You Won :)" : "You Lost :(");
 	}
 	
-	public void showAttack(int damage, Character attacker, Character defender) {
+	public void showAttack(int damage[], Character attacker, Character defender) {
+		if (damage[0] == -1) {
+			System.out.printf("\n%s DODGED ATTACK of %s \n\n", defender.getName(), attacker.getName());
+			return;
+		}
+		if (defender.isDefender()) {
+			System.out.printf("\n%s ATTACK %s for %d HP and %s hit back %s for %d HP\n\n", 
+					attacker.getName(), defender.getName(), damage[0], defender.getName(), 
+					attacker.getName(), damage[1]);
+			return;
+		}
+		
 		String type = attacker.isCleric() ? "HEAL" : "ATTACK";
 		if (attacker.isCleric()) {
-			damage *= -1;
+			damage[0] *= -1;
 		}
-		System.out.printf("\n%s %s %s for %d HP\n\n", attacker.getName(), type, defender.getName(), damage);
+		System.out.printf("\n%s %s %s for %d HP\n\n", attacker.getName(), type, defender.getName(), damage[0]);
 	}
 	
 	public Character selectToAttack(Character attacker, ArrayList <Character> toAttack) {
