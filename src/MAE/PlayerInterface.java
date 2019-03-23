@@ -32,17 +32,12 @@ public class PlayerInterface {
 	
 	public void closeGame(boolean result) {
 		this.scanner.close();
-		if (result) {
-			System.out.println("You Won :)");
-		} else {
-			System.out.println("You Lost :(");
-		}
+		System.out.println(result ? "You Won :)" : "You Lost :(");
 	}
 	
 	public void showAttack(int damage, Character attacker, Character defender) {
-		String type = "ATTACK";
+		String type = attacker.isCleric() ? "HEAL" : "ATTACK";
 		if (attacker.isCleric()) {
-			type = "HEAL";
 			damage *= -1;
 		}
 		System.out.printf("\n%s %s %s for %d HP\n\n", attacker.getName(), type, defender.getName(), damage);
