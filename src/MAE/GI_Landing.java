@@ -20,10 +20,11 @@ public class GI_Landing {
 		frmGameMae = new JFrame();
 		frmGameMae.setBackground(Color.LIGHT_GRAY);
 		frmGameMae.setResizable(false);
-		Image icon = new ImageIcon(this.getClass().getResource("/icon.png")).getImage();
+		Image icon = new ImageIcon(this.getClass().getResource("/iconWhite.png")).getImage();
 		frmGameMae.setIconImage(icon);
 		frmGameMae.setTitle("Mists of the Abandoned Etherdungeon");
-		frmGameMae.setBounds(100, 100, 800, 500);
+		frmGameMae.setSize(800, 500);
+		frmGameMae.setLocationRelativeTo(null);
 		frmGameMae.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmGameMae.getContentPane().setLayout(null);
 		
@@ -44,12 +45,12 @@ public class GI_Landing {
 		btnStartGame.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				System.out.println(textField.getText());
 				if (!textField.getText().equals("")) {
 					game.receivePlayerName(textField.getText());
 					frmGameMae.setVisible(false);
 					return;
 				}
+				msgbox("You need to insert a player name before starting the game");
 				
 			}
 		});
@@ -62,5 +63,9 @@ public class GI_Landing {
 		labelBK.setIcon(new ImageIcon( bk));
 		labelBK.setBounds(0, 0, 794, 465);
 		frmGameMae.getContentPane().add(labelBK);
+	}
+	
+	private void msgbox(String s){
+	   JOptionPane.showMessageDialog(null, s);
 	}
 }

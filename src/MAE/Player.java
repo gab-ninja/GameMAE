@@ -1,7 +1,7 @@
 package MAE;
 import java.util.*;
 
-public class Player {
+abstract class Player {
 
 	private int damageGiven;
 	private int damageTaken;
@@ -52,6 +52,5 @@ public class Player {
 	
 	public void healCharacters ()  {
 		this.characters.forEach(character ->  character.heal());
-	}
-	
+	}	
 };

@@ -15,7 +15,7 @@ public class Game {
 	
 	private String playerName;
 	
-	private static ArrayUtils arr= new ArrayUtils();
+	private static ArrayUtils au= new ArrayUtils();
 	
 	public Game() {
 		super();
@@ -47,7 +47,12 @@ public class Game {
 	
 	public void receivePlayerName(String playerName) {
 		this.playerName = playerName;
-		new GI_PickHeroes();
+		new GI_PickHeroes(this);
+	}
+
+	public void receivePlayerCharacters(int[] characters) {
+		this.human = new Human(this.convertInt2Character(characters, true), this.playerName);
+		System.out.println("Game initiated...\n" + this.human.getCharacters() + " " + this.human.getName());
 	}
 	
 	public boolean level(int level) {
@@ -57,7 +62,7 @@ public class Game {
 		}
 		gameInterface.showLevel(level);
 		
-		int[] cpuTeam = arr.randomNonRepetitive(numOfMonsters, monsters.size());
+		int[] cpuTeam = au.randomNonRepetitive(numOfMonsters, monsters.size());
 		this.cpu = new Computer(this.convertInt2Character(cpuTeam, false));
 		
 		gameInterface.showStats(human.getCharacters(), cpu.getCharacters());
