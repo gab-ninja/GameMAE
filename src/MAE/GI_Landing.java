@@ -23,7 +23,8 @@ public class GI_Landing {
 		Image icon = new ImageIcon(this.getClass().getResource("/icon.png")).getImage();
 		frmGameMae.setIconImage(icon);
 		frmGameMae.setTitle("Mists of the Abandoned Etherdungeon");
-		frmGameMae.setBounds(100, 100, 800, 500);
+		frmGameMae.setSize(800, 500);
+		frmGameMae.setLocationRelativeTo(null);
 		frmGameMae.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmGameMae.getContentPane().setLayout(null);
 		

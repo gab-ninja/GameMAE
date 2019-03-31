@@ -4,8 +4,9 @@ import java.util.*;
 public class Human extends Player {
 	private String name;
 	
-	public Human(ArrayList<Character> characters) {
+	public Human(ArrayList<Character> characters, String name) {
 		super(characters);
+		this.name = name;
 	}
 
 	public String getName() {
