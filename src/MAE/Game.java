@@ -13,6 +13,8 @@ public class Game {
 	private Human human;
 	private Computer cpu;
 	
+	private String playerName;
+	
 	private static ArrayUtils arr= new ArrayUtils();
 	
 	public Game() {
@@ -21,6 +23,8 @@ public class Game {
 	}
 
 	public void startGame() {
+		new GI_Landing(this);
+		/*
 		this.gameInterface = new PlayerInterface();
 		
 		int[] numbersChosen = gameInterface.pickHeroes(heroes);
@@ -38,6 +42,12 @@ public class Game {
 		}
 		
 		gameInterface.closeGame(result);
+		*/
+	}
+	
+	public void receivePlayerName(String playerName) {
+		this.playerName = playerName;
+		new GI_PickHeroes();
 	}
 	
 	public boolean level(int level) {
