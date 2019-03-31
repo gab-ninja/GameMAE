@@ -52,13 +52,5 @@ abstract class Player {
 	
 	public void healCharacters ()  {
 		this.characters.forEach(character ->  character.heal());
-	}
-
-	@Override
-	public String toString() {
-		return "Player [characters=" + characters + "]";
-	}
-	
-	
-	
+	}	
 };

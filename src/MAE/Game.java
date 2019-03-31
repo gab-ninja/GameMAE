@@ -52,7 +52,7 @@ public class Game {
 
 	public void receivePlayerCharacters(int[] characters) {
 		this.human = new Human(this.convertInt2Character(characters, true), this.playerName);
-		System.out.println("Game initiated..." + characters);
+		System.out.println("Game initiated...\n" + this.human.getCharacters() + " " + this.human.getName());
 	}
 	
 	public boolean level(int level) {

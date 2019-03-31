@@ -32,7 +32,7 @@ public class GI_PickHeroes {
 		frame = new JFrame();
 		frame.setSize(1440, 800);
 		frame.setLocationRelativeTo(null);
-		Image icon = new ImageIcon(this.getClass().getResource("/icon.png")).getImage();
+		Image icon = new ImageIcon(this.getClass().getResource("/iconWhite.png")).getImage();
 		frame.setIconImage(icon);
 		frame.setTitle("Mists of the Abandoned Etherdungeon");		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -255,6 +255,6 @@ public class GI_PickHeroes {
 	}
 	
 	private void msgbox(String s){
-		   JOptionPane.showMessageDialog(null, s);
-		}
+	   JOptionPane.showMessageDialog(null, s);
+	}
 }
