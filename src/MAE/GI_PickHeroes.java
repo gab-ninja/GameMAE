@@ -14,7 +14,7 @@ public class GI_PickHeroes {
 
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 1718, 1048);
+		frame.setBounds(0, 0, 1440, 800);
 		Image icon = new ImageIcon(this.getClass().getResource("/icon.png")).getImage();
 		frame.setIconImage(icon);
 		frame.setTitle("Mists of the Abandoned Etherdungeon");		
