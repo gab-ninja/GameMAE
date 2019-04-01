@@ -1,6 +1,8 @@
 package MAE;
 import java.util.*;
 
+import MAE.Character;
+
 abstract class Player {
 
 	protected int damageGiven;
@@ -34,19 +36,7 @@ abstract class Player {
 		return charactersAlive;
 	}
 	
-	public ArrayList<Character> getCharactersToAttack() {
-		ArrayList <Character> charactersToAttack = new ArrayList<Character>();
-		charactersToAttack = this.getCharactersAlive();
-		int listSize = charactersToAttack.size();
-		for (int i=0; i < listSize; i++) {
-			if (charactersToAttack.get(i).isDefender()) {
-				charactersToAttack.add(i, charactersToAttack.get(i));
-				i++;
-				listSize ++;
-			}
-		}
-		return charactersToAttack;
-	}
+	public abstract ArrayList<Character> getCharactersToAttack();
 	
 	public boolean hasCharactersAlive() {
 		return this.team.stream().anyMatch(e -> e.isAlive());

@@ -1,6 +1,6 @@
 package MAE;
 
-class Character {
+abstract class Character {
 	protected String name;
 	protected int attackMin;
 	protected int attackMax;
@@ -26,6 +26,7 @@ class Character {
 		this.imgName = imgName;
 	}
 	
+	
 	public String getName() {
 		return name;
 	}
@@ -41,18 +42,17 @@ class Character {
 	public String getImgName() {
 		return this.imgName;
 	}
+
 	
-	public boolean isDuelist() {
-		if (this.category == Categories.Duelist) {
-			return true;
-		}
-		return false;
+	public boolean isMonster() {
+		return this.isMonster;
 	}
 	
 	public boolean isDefender() {
-		if (this.category == Categories.Defender) {
-			return true;
-		}
+		return false;
+	}
+	
+	public boolean isCleric() {
 		return false;
 	}
 	
@@ -60,25 +60,13 @@ class Character {
 		return health > 0;
 	}
 	
-	public boolean isMonster() {
-		return this.isMonster;
-	}
-	
-	public boolean isCleric() {
-		return this.attackMin < 0;
-	}
-	
 	public boolean isPoisoned() {
 		return this.poison > 0;
 	}
 	
-	public void play() {
-		this.health = 0;
-		if (this.canPlay && this.health > 0) {
-			return;
-		}
-		return;
-	}
+	
+	public abstract void play(GI_Battle playerInterface);
+	
 	
 	public void block() {
 		this.canPlay = false;

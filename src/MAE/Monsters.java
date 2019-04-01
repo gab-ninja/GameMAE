@@ -43,7 +43,7 @@ public enum Monsters {
     	case Spider:
     		return new Rogue(this.toString(), this.category, this.hpMax, this.attackMin, this.attackMax, this.imgName);
 		default:
-			return new Character(this.toString(), this.category, this.hpMax, this.attackMin, this.attackMax, this.imgName, true);    		
+			return new Monster(this.toString(), this.category, this.hpMax, this.attackMin, this.attackMax, this.imgName);    		
 		}
 	}
 }

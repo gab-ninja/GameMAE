@@ -1,9 +1,9 @@
 package MAE;
 
-public class Spider extends Character {
+public class Spider extends Monster {
 	
 	public Spider(String name, Categories category, int healthMax, int attackMin, int attackMax, String imgName) {
-		super(name, category, healthMax, attackMin, attackMax, imgName, true);
+		super(name, category, healthMax, attackMin, attackMax, imgName);
 	}
 
 	@Override

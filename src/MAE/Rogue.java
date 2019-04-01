@@ -1,9 +1,9 @@
 package MAE;
 
-public class Rogue extends Character {
+public class Rogue extends Heroe {
 	
 	public Rogue(String name, Categories category, int healthMax, int attackMin, int attackMax, String imgName) {
-		super(name, category, healthMax, attackMin, attackMax, imgName, false);
+		super(name, category, healthMax, attackMin, attackMax, imgName);
 	}
 
 	@Override

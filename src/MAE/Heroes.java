@@ -34,8 +34,9 @@ public enum Heroes {
 		case Warrior:
 		case Paladin:
 		case Assassin:
-		case Cleric:
 			return new BasicHero(this.toString(), this.category, this.hpMax, this.attackMin, this.attackMax, this.imgName);
+		case Cleric:
+			return new Cleric(this.toString(), this.category, this.hpMax, this.attackMin, this.attackMax, this.imgName);
 		case Berserker:
 			return new Berserker(this.toString(), this.category, this.hpMax, this.attackMin, this.attackMax, this.imgName);
 		case Defender:
@@ -47,7 +48,7 @@ public enum Heroes {
 		case Rogue:
 			return new Rogue(this.toString(), this.category, this.hpMax, this.attackMin, this.attackMax, this.imgName);
 		default:
-			return new Character(this.toString(), this.category, this.hpMax, this.attackMin, this.attackMax, this.imgName, false);
+			return new Heroe(this.toString(), this.category, this.hpMax, this.attackMin, this.attackMax, this.imgName);
 			
 		}
 	}
