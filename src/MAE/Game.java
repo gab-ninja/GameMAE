@@ -40,7 +40,6 @@ public class Game {
 				break;
 			}
 			this.human.healTeam();
-			this.cpu.healTeam();
 		}
 		System.out.println("Game finished...");
 	}
@@ -49,8 +48,6 @@ public class Game {
 		order.clear();
 		order.addAll(this.human.getTeam());
 		order.addAll(this.cpu.generateTeam(level));
-		return true;
-		/*
 		while(true) {
 			Collections.shuffle(this.order);
 			for (Character character : order) {
@@ -63,7 +60,6 @@ public class Game {
 				character.play();
 			}
 		}		
-		*/
 	}
 	
 	/*

@@ -9,6 +9,9 @@ public class GI_Battle {
 
 	private JFrame frame;
 	private Game game;
+	
+	private Image[] heroImages = new Image[4];
+	private JLabel[] labelHeroes = new JLabel[4];
 
 	public GI_Battle(Game game) {
 		this.game = game;
@@ -17,7 +20,12 @@ public class GI_Battle {
 	}
 	
 	public void loadHeroes(ArrayList<Character> characters) {
-		return;
+		System.out.println(characters);
+		for (int i=0; i<4; i++) {
+			heroImages[i] = new ImageIcon(this.getClass().getResource(characters.get(i).getImgName())).getImage();	
+			labelHeroes[i].setIcon(new ImageIcon(heroImages[i]));
+		}
+		return; 
 	}
 
 	private void initialize() {
@@ -38,23 +46,21 @@ public class GI_Battle {
 		frame.getContentPane().add(label_bk);
 		
 		
-		JLabel label_h1 = new JLabel("");
-		Image ch1 = new ImageIcon(this.getClass().getResource("/1.png")).getImage();
-		label_h1.setIcon(new ImageIcon(ch1));
-		label_h1.setBounds(278, 387, 252, 353);
-		frame.getContentPane().add(label_h1);
+		labelHeroes[0] = new JLabel("");
+		labelHeroes[0].setBounds(278, 387, 252, 353);
+		frame.getContentPane().add(labelHeroes[0]);
 		
-		JLabel label_h2 = new JLabel("");
-		label_h2.setBounds(552, 387, 252, 353);
-		frame.getContentPane().add(label_h2);
+		labelHeroes[1] = new JLabel("");
+		labelHeroes[1].setBounds(552, 387, 252, 353);
+		frame.getContentPane().add(labelHeroes[1]);
 		
-		JLabel label_h3 = new JLabel("");
-		label_h3.setBounds(834, 387, 252, 353);
-		frame.getContentPane().add(label_h3);
+		labelHeroes[2] = new JLabel("");
+		labelHeroes[2].setBounds(834, 387, 252, 353);
+		frame.getContentPane().add(labelHeroes[2]);
 		
-		JLabel label_h4 = new JLabel("");
-		label_h4.setBounds(1122, 387, 252, 353);
-		frame.getContentPane().add(label_h4);
+		labelHeroes[3] = new JLabel("");
+		labelHeroes[3].setBounds(1122, 387, 252, 353);
+		frame.getContentPane().add(labelHeroes[3]);
 		
 		
 		

@@ -1,8 +1,8 @@
 package MAE;
 
 public class BasicHero extends Character {
-	public BasicHero(String name, Categories category, int healthMax, int attackMin, int attackMax) {
-		super(name, category, healthMax, attackMin, attackMax, false);
+	public BasicHero(String name, Categories category, int healthMax, int attackMin, int attackMax, String imgName) {
+		super(name, category, healthMax, attackMin, attackMax, imgName, false);
 		// TODO Auto-generated constructor stub
 	}
 

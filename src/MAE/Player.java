@@ -14,9 +14,9 @@ abstract class Player {
 		this.damageTaken = 0;
 		this.playerInterface = playerInterface;
 	}
-	
-	public void setTeam(ArrayList <Character> characters) {
-		this.team = characters;
+
+	public ArrayList<Character> getTeam() {
+		return team;
 	}
 
 	public int getDamageGiven() {
@@ -27,10 +27,6 @@ abstract class Player {
 		return damageTaken;
 	}
 
-	public ArrayList<Character> getTeam() {
-		return team;
-	}
-	
 	public ArrayList<Character> getCharactersAlive() {
 		ArrayList <Character> charactersAlive = new ArrayList<Character>();
 		charactersAlive.addAll(this.team);
@@ -59,4 +55,8 @@ abstract class Player {
 	public void healTeam ()  {
 		this.team.forEach(character ->  character.heal());
 	}	
+	
+	public void setTeam(ArrayList <Character> characters) {
+		this.team = characters;
+	}
 };

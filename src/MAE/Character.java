@@ -10,8 +10,9 @@ class Character {
 	protected boolean canPlay;
 	protected boolean isMonster;
 	protected int poison;
+	protected String imgName;
 
-	public Character(String name, Categories category, int healthMax, int attackMin, int attackMax, boolean isMonster) {
+	public Character(String name, Categories category, int healthMax, int attackMin, int attackMax, String imgName, boolean isMonster) {
 		super();
 		this.name = name;
 		this.category = category;
@@ -22,6 +23,7 @@ class Character {
 		this.canPlay = true;
 		this.isMonster = isMonster;
 		this.poison = 0;
+		this.imgName = imgName;
 	}
 	
 	public String getName() {
@@ -34,6 +36,10 @@ class Character {
 	
 	public int getAttackMin() {
 		return this.attackMin;
+	}
+	
+	public String getImgName() {
+		return this.imgName;
 	}
 	
 	public boolean isDuelist() {
@@ -67,6 +73,7 @@ class Character {
 	}
 	
 	public void play() {
+		this.health = 0;
 		if (this.canPlay && this.health > 0) {
 			return;
 		}

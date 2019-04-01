@@ -2,8 +2,8 @@ package MAE;
 
 public class Monk extends Character {
 
-	public Monk(String name, Categories category, int healthMax, int attackMin, int attackMax) {
-		super(name, category, healthMax, attackMin, attackMax, false);
+	public Monk(String name, Categories category, int healthMax, int attackMin, int attackMax, String imgName) {
+		super(name, category, healthMax, attackMin, attackMax, imgName, false);
 	}
 
 	@Override
