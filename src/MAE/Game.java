@@ -1,48 +1,26 @@
 package MAE;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.*;
 
 public class Game {
 	
-	private ArrayList <Character> heroes = new ArrayList<Character>();
-	private ArrayList <Character> monsters = new ArrayList<Character>();
-	private ArrayList <Character> order = new ArrayList <Character>();
-
-	private PlayerInterface gameInterface;
-	private Human human;
-	private Computer cpu;
+	private final int NUMBER_OF_LEVELS = 5;
 	
+	private ArrayList <Character> order = new ArrayList <Character>();
+	private int level;
+	
+	private Computer cpu;
+	private Human human;
 	private String playerName;
 	
-	private static ArrayUtils au= new ArrayUtils();
+	private PlayerInterface gameInterface;
+	private GI_Battle playerInterface;
 	
 	public Game() {
-		super();
-		this.readCharacters();
+		this.level = 0;
 	}
 
 	public void startGame() {
 		new GI_Landing(this);
-		/*
-		this.gameInterface = new PlayerInterface();
-		
-		int[] numbersChosen = gameInterface.pickHeroes(heroes);
-		this.human = new Human(this.convertInt2Character(numbersChosen, true));
-		
-		boolean result = false;
-		
-		for (int i=1; i<=5; i++) {
-			 result = level(i);
-			if (result == false) {
-				break;
-			}
-			this.human.healCharacters();
-			this.cpu.healCharacters();
-		}
-		
-		gameInterface.closeGame(result);
-		*/
 	}
 	
 	public void receivePlayerName(String playerName) {
@@ -50,11 +28,45 @@ public class Game {
 		new GI_PickHeroes(this);
 	}
 
-	public void receivePlayerCharacters(int[] characters) {
-		this.human = new Human(this.convertInt2Character(characters, true), this.playerName);
-		System.out.println("Game initiated...\n" + this.human.getCharacters() + " " + this.human.getName());
+	public void receivePlayerCharacters(ArrayList <Character> characters) {
+		this.playerInterface = new GI_Battle(this);
+		this.human = new Human(characters, this.playerName, this.playerInterface);
+		this.cpu = new Computer(this.playerInterface);		
+		
+		boolean computerWon = false;
+		for (int i=1; i<=NUMBER_OF_LEVELS; i++) {
+			computerWon = playLevel(i);
+			if (computerWon) {
+				break;
+			}
+			this.human.healTeam();
+			this.cpu.healTeam();
+		}
+		System.out.println("Game finished...");
 	}
 	
+	public boolean playLevel(int level) {
+		order.clear();
+		order.addAll(this.human.getTeam());
+		order.addAll(this.cpu.generateTeam(level));
+		return true;
+		/*
+		while(true) {
+			Collections.shuffle(this.order);
+			for (Character character : order) {
+				if (!human.hasCharactersAlive()) {
+					return true;
+				}
+				if (!cpu.hasCharactersAlive()) {
+					return false;
+				}
+				character.play();
+			}
+		}		
+		*/
+	}
+	
+	/*
 	public boolean level(int level) {
 		int numOfMonsters = 3;
 		if (level > 2) {
@@ -121,75 +133,22 @@ public class Game {
         gameInterface.showAttack(damage, character, toAttack.get(0));
 	}
 	
-	public void readCharacters()  {
-		try {
-			String cwd = new File("").getAbsolutePath();
-	        Scanner scanner = new Scanner(new File(cwd + "/src/MAE/characters.csv"));
-	        scanner.useDelimiter("\n");
-	        while(scanner.hasNext()){
-	        	String[] read =  scanner.next().toString().split(",");
-	        	switch (read[0]) {
-		        	case "hero":
-		        		heroes.add(new Character(read[1], categories.valueOf(read[2]), Integer.parseInt(read[3]), Integer.parseInt(read[4]), Integer.parseInt(read[5]), false));
-		        		break;
-		        	case "specialHero":
-		        		switch (read[2]) {
-		        		case "Rogue":
-		        			heroes.add(new RogueSpider(read[1], categories.valueOf(read[2]), Integer.parseInt(read[3]), Integer.parseInt(read[4]), Integer.parseInt(read[5]), false));
-		        			break;		
-		        		case "Berserker":
-		        			heroes.add(new Berserker(read[1], categories.valueOf(read[2]), Integer.parseInt(read[3]), Integer.parseInt(read[4]), Integer.parseInt(read[5]), false));
-		        			break;
-		        		case "Monk":
-		        			heroes.add(new Monk(read[1], categories.valueOf(read[2]), Integer.parseInt(read[3]), Integer.parseInt(read[4]), Integer.parseInt(read[5]), false));
-		        			break;
-		        		case "Duelist":
-		        		case "Defender":
-		        			heroes.add(new Character(read[1], categories.valueOf(read[2]), Integer.parseInt(read[3]), Integer.parseInt(read[4]), Integer.parseInt(read[5]), false));
-		        			break;
-		        		}
-		        		break;
-		        	case "monster":
-		        		switch (read[2]) {
-			        	case "Spider":
-			        		monsters.add(new RogueSpider(read[1], categories.valueOf(read[2]), Integer.parseInt(read[3]), Integer.parseInt(read[4]), Integer.parseInt(read[5]), true));
-			        		break;
-			        	case "Mummy":
-			        		monsters.add(new Mummy(read[1], categories.valueOf(read[2]), Integer.parseInt(read[3]), Integer.parseInt(read[4]), Integer.parseInt(read[5]), true));
-			        		break;
-			        	case "Slime":
-			        		monsters.add(new Slime(read[1], categories.valueOf(read[2]), Integer.parseInt(read[3]), Integer.parseInt(read[4]), Integer.parseInt(read[5]), true));
-			        		break;
-			        	case "Avenger":
-			        		monsters.add(new Avenger(read[1], categories.valueOf(read[2]), Integer.parseInt(read[3]), Integer.parseInt(read[4]), Integer.parseInt(read[5]), true));
-			        		break;
-			        	case "Hamish":
-			        		monsters.add(new Hamish(read[1], categories.valueOf(read[2]), Integer.parseInt(read[3]), Integer.parseInt(read[4]), Integer.parseInt(read[5]), true));
-			        		break;
-			        	case "Karim":
-			        		monsters.add(new Karim(read[1], categories.valueOf(read[2]), Integer.parseInt(read[3]), Integer.parseInt(read[4]), Integer.parseInt(read[5]), true));
-			        		break;
-			        }
-		        	break;
-		        }
-	        }
-	        	
-	        scanner.close();
-		} catch (FileNotFoundException e) {
-			System.out.println("Characters file is missing");
-			e.printStackTrace();
+	public void loadCharacters() {
+		//TODO: reomve this method
+		for (Heroes hero : Heroes.values()) {
+			heroes.add(hero.generateCharacterObject());
 		}
-    }
+		for (Monsters monster : Monsters.values()) {
+			monsters.add(monster.generateCharacterObject());
+		}
+	}
 	
-	private ArrayList <Character> convertInt2Character(int[] arr, boolean isHero) {
+	private ArrayList <Character> convertInt2Heroes(int[] arr) {
 		ArrayList <Character> characters = new ArrayList<Character>();
 		for (int i=0; i<arr.length; i++) {
-			if (isHero) {
-				characters.add(heroes.get(arr[i]));
-			} else {
-				characters.add(monsters.get(arr[i]));
-			}
+			characters.add(heroes.get(arr[i]));
 		}
 		return characters;
 	}
+	*/
 };

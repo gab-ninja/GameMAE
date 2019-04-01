@@ -5,13 +5,13 @@ class Character {
 	protected int attackMin;
 	protected int attackMax;
 	protected int health;
-	protected categories category;
+	protected Categories category;
 	protected int healthMax;
 	protected boolean canPlay;
 	protected boolean isMonster;
 	protected int poison;
 
-	public Character(String name, categories category, int healthMax, int attackMin, int attackMax, boolean isMonster) {
+	public Character(String name, Categories category, int healthMax, int attackMin, int attackMax, boolean isMonster) {
 		super();
 		this.name = name;
 		this.category = category;
@@ -37,14 +37,14 @@ class Character {
 	}
 	
 	public boolean isDuelist() {
-		if (this.category == categories.Duelist) {
+		if (this.category == Categories.Duelist) {
 			return true;
 		}
 		return false;
 	}
 	
 	public boolean isDefender() {
-		if (this.category == categories.Defender) {
+		if (this.category == Categories.Defender) {
 			return true;
 		}
 		return false;
@@ -66,8 +66,11 @@ class Character {
 		return this.poison > 0;
 	}
 	
-	public boolean canPlay() {
-		return this.canPlay && this.health > 0;
+	public void play() {
+		if (this.canPlay && this.health > 0) {
+			return;
+		}
+		return;
 	}
 	
 	public void block() {

@@ -1,7 +1,6 @@
 package MAE;
 
-
-public enum categories {
+public enum Categories {
 	Warrior,
 	Paladin,
 	Cleric,
@@ -15,6 +14,6 @@ public enum categories {
 	Mummy,
 	Slime,
 	Avenger,
-	Hamish,
+	Slayer,
 	Karim;
 };

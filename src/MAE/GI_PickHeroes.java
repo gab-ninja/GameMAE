@@ -4,16 +4,22 @@ import java.awt.*;
 import javax.swing.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.*;
 
 public class GI_PickHeroes {
 
 	private JFrame frame;
+	private ArrayList <Character> heroes = new ArrayList<Character>();
 	private boolean[] cardStates = {false, false, false, false, false, false, false, false, false, false, false, false, false};
-	private static ArrayUtils au = new ArrayUtils();
 	private Game game;
+	
+	private static ArrayUtils au = new ArrayUtils();
 
 	public GI_PickHeroes(Game game) {
 		this.game = game;
+		for (Heroes hero : Heroes.values()) {
+			heroes.add(hero.generateCharacterObject());
+		}
 		initialize();
 		frame.setVisible(true);
 	}
@@ -36,7 +42,6 @@ public class GI_PickHeroes {
 		frame.setIconImage(icon);
 		frame.setTitle("Mists of the Abandoned Etherdungeon");		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		Image bk = new ImageIcon(this.getClass().getResource("/PickCharacters.png")).getImage();
 		frame.getContentPane().setLayout(null);
 
 		JButton btnNewButton = new JButton("Start Battle");
@@ -44,7 +49,7 @@ public class GI_PickHeroes {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if (au.numberOfOccurences(cardStates, true) == 4) {
-					game.receivePlayerCharacters(au.findPositions(cardStates, true, 4));
+					game.receivePlayerCharacters(convertInt2Heroes(au.findPositions(cardStates, true, 4)));
 					frame.setVisible(false);
 					return;
 				}
@@ -76,7 +81,7 @@ public class GI_PickHeroes {
 		label.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				label.setOpaque(changeState(0));
+				label.setOpaque(changeState(1));
 				label.repaint();
 			}
 		});
@@ -86,14 +91,6 @@ public class GI_PickHeroes {
 		frame.getContentPane().add(label);
 		
 		JLabel label_1 = new JLabel("");
-		label.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		label.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				label.setOpaque(changeState(1));
-				label.repaint();
-			}
-		});
 		label_1.setOpaque(cardStates[2]);
 		label_1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		label_1.addMouseListener(new MouseAdapter() {
@@ -249,6 +246,7 @@ public class GI_PickHeroes {
 		
 		JLabel labelBK = new JLabel("");
 		labelBK.setBounds(0, 0, 1422, 753);
+		Image bk = new ImageIcon(this.getClass().getResource("/PickCharacters.png")).getImage();
 		labelBK.setIcon(new ImageIcon( bk));
 		frame.getContentPane().add(labelBK);
 		
@@ -256,5 +254,13 @@ public class GI_PickHeroes {
 	
 	private void msgbox(String s){
 	   JOptionPane.showMessageDialog(null, s);
+	}
+	
+	private ArrayList <Character> convertInt2Heroes(int[] arr) {
+		ArrayList <Character> characters = new ArrayList<Character>();
+		for (int i=0; i<arr.length; i++) {
+			characters.add(heroes.get(arr[i]));
+		}
+		return characters;
 	}
 }

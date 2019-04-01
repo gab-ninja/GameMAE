@@ -2,8 +2,8 @@ package MAE;
 
 public class Karim extends Character{
 
-	public Karim(String name, categories category, int healthMax, int attackMin, int attackMax, boolean isMonster) {
-		super(name, category, healthMax, attackMin, attackMax, isMonster);
+	public Karim(String name, Categories category, int healthMax, int attackMin, int attackMax) {
+		super(name, category, healthMax, attackMin, attackMax, true);
 		// TODO Auto-generated constructor stub
 	}
 
