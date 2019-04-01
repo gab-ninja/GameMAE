@@ -1,8 +1,11 @@
 package MAE;
 import java.util.*;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 public class Game {
+	
+	public final CountDownLatch latch = new CountDownLatch(1);
 	
 	private final int NUMBER_OF_LEVELS = 5;
 	
@@ -58,8 +61,8 @@ public class Game {
 				if (!cpu.hasCharactersAlive()) {
 					return false;
 				}
-				return true;
 				//character.play(this.playerInterface);
+				return true;
 			}
 		}		
 	}

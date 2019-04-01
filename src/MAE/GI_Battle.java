@@ -2,6 +2,7 @@ package MAE;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.concurrent.CountDownLatch;
 
 import javax.swing.*;
 import java.awt.event.MouseAdapter;
@@ -27,7 +28,6 @@ public class GI_Battle {
 	private boolean[] showBtnMonsters = {false, false, false, false};
 	
 	private volatile int choice = -1;
-	private Heroe ch;
 	
 	private static final ArrayUtils au = new ArrayUtils();
 
@@ -62,21 +62,28 @@ public class GI_Battle {
 		}
 	}
 	
-	public void getMonsterToAttack(Heroe ch) {
-		this.ch = ch;
-		System.out.println(this.cpu.getCharactersToAttack());
-		ArrayList <Character> monstersAlive = this.cpu.getCharactersToAttack();
+	public int getMonsterToAttack(Heroe ch) {
+		
+		
+		
+		
+		
+		return choice;
+		
+		/*ArrayList <Character> monstersAlive = this.cpu.getCharactersToAttack();
 		String[] choices = new String[monstersAlive.size()];
+		
 		int i=0;
 		for (Character monster : monsters) {
 			if (monstersAlive.contains(monster)) {
 				choices[i] = monster.getName();
 				i++;
-				//labelMonsters[monsters.indexOf(monster)].setBorder(BorderFactory.createLineBorder(Color.YELLOW, 5));
-				//labelMonsters[monsters.indexOf(monster)].repaint();
-				//handleMonsters[monsters.indexOf(monster)] = true;
+				labelMonsters[monsters.indexOf(monster)].setBorder(BorderFactory.createLineBorder(Color.YELLOW, 5));
+				labelMonsters[monsters.indexOf(monster)].repaint();
+				handleMonsters[monsters.indexOf(monster)] = true;
 			}
 		}
+		*/
 		//JList list = new JList(choices);
         //ListDialog dialog = new ListDialog("Please select an item in the list: ", list);
         //dialog.setOnOk(e -> System.out.println("Chosen item: " + dialog.getSelectedItem()));
