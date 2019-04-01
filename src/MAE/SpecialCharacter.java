@@ -2,7 +2,7 @@ package MAE;
 
 
 public class SpecialCharacter extends Character {
-	public SpecialCharacter(String name, categories category, int healthMax, int attackMin, int attackMax, boolean isMonster) {
+	public SpecialCharacter(String name, Categories category, int healthMax, int attackMin, int attackMax, boolean isMonster) {
 		super(name, category, healthMax, attackMin, attackMax, isMonster);
 		// TODO Auto-generated constructor stub
 	}
