@@ -1,10 +1,9 @@
 package MAE;
 
-import java.util.concurrent.CountDownLatch;
 
-public class Heroe extends Character {
+public class Hero extends Character {
 	
-	public Heroe(String name, Categories category, int healthMax, int attackMin, int attackMax, String imgName) {
+	public Hero(String name, Categories category, int healthMax, int attackMin, int attackMax, String imgName) {
 		super(name, category, healthMax, attackMin, attackMax, imgName, false);
 	}
 
@@ -12,7 +11,8 @@ public class Heroe extends Character {
 	public void play(GI_Battle playerInterface) {
 		if (this.canPlay && this.health > 0) {
 			int choice = playerInterface.getMonsterToAttack(this);
-			System.out.println(choice);
+		} else if (!this.canPlay && this.health >  0) {
+			this.unBlock();
 		}
 		return;
 	}

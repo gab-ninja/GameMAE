@@ -48,7 +48,7 @@ public enum Heroes {
 		case Rogue:
 			return new Rogue(this.toString(), this.category, this.hpMax, this.attackMin, this.attackMax, this.imgName);
 		default:
-			return new Heroe(this.toString(), this.category, this.hpMax, this.attackMin, this.attackMax, this.imgName);
+			return new Hero(this.toString(), this.category, this.hpMax, this.attackMin, this.attackMax, this.imgName);
 			
 		}
 	}

@@ -7,4 +7,12 @@ public class Slime extends Monster {
 		// TODO Auto-generated constructor stub
 	}
 
+	@Override
+	public int[] attack(Character defender) {
+		defender.block();
+		return super.attack(defender);
+	}
+	
+	
+
 }

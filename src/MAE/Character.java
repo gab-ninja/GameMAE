@@ -7,10 +7,13 @@ abstract class Character {
 	protected int health;
 	protected Categories category;
 	protected int healthMax;
-	protected boolean canPlay;
 	protected boolean isMonster;
 	protected int poison;
 	protected String imgName;
+	
+	protected boolean canPlay;
+	
+	private static final int POISON_DAMAGE = 20;
 
 	public Character(String name, Categories category, int healthMax, int attackMin, int attackMax, String imgName, boolean isMonster) {
 		super();
@@ -20,10 +23,10 @@ abstract class Character {
 		this.health = healthMax;
 		this.attackMin = attackMin;
 		this.attackMax = attackMax;
-		this.canPlay = true;
 		this.isMonster = isMonster;
 		this.poison = 0;
 		this.imgName = imgName;
+		this.canPlay = true;
 	}
 	
 	
@@ -67,7 +70,6 @@ abstract class Character {
 	
 	public abstract void play(GI_Battle playerInterface);
 	
-	
 	public void block() {
 		this.canPlay = false;
 	}
@@ -76,13 +78,20 @@ abstract class Character {
 		this.canPlay = true;
 	}
 
-	public void heal() {
+	public void revive() {
 		if (this.health == 0 && !this.isMonster) {
 			this.health = this.healthMax / 4;
 		} else {
 			this.health = this.healthMax;
 		}
 		this.poison = 0;
+	}
+	
+	public void heal(int heal) {
+		this.health += heal;
+		if (this.healthMax < this.health) {
+			this.health = this.healthMax;
+		}
 	}
 
 	public boolean takeDamage(int damage, Character attacker) {
@@ -104,7 +113,7 @@ abstract class Character {
 	public int[] attack(Character defender) {
 		int[] res = {0,0};
 		if (this.isPoisoned()) {
-			this.takeDamage(20, this);
+			this.takeDamage(POISON_DAMAGE, this);
 			this.poison --;
 			if(!this.isAlive()) {
 				return res;
@@ -112,15 +121,8 @@ abstract class Character {
 		}
 		int attack = this.attackMin + (int)(Math.random() * ((this.attackMax - this.attackMin) + 1));
 		if(defender.takeDamage(attack, this)) {
-			res[0] = attack;	
-			if (defender.isDefender() && attack > 0) {
-				int health = this.getHealth();
-				if (defender.isAlive()) {
-					defender.attack(this);
-				}
-				res[1] = health - this.getHealth();
-			}
-		} else {
+			res[0] = attack;
+		}else{
 			res[0] = -1;
 		}
 		return res;

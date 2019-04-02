@@ -1,6 +1,6 @@
 package MAE;
 
-public class Monk extends Heroe {
+public class Monk extends Hero {
 
 	public Monk(String name, Categories category, int healthMax, int attackMin, int attackMax, String imgName) {
 		super(name, category, healthMax, attackMin, attackMax, imgName);

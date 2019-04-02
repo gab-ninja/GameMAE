@@ -43,7 +43,7 @@ abstract class Player {
 	}
 	
 	public void healTeam ()  {
-		this.team.forEach(character ->  character.heal());
+		this.team.forEach(character ->  character.revive());
 	}	
 	
 	public void setTeam(ArrayList <Character> characters) {

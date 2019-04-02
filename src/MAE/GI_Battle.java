@@ -62,7 +62,7 @@ public class GI_Battle {
 		}
 	}
 	
-	public int getMonsterToAttack(Heroe ch) {
+	public int getMonsterToAttack(Hero ch) {
 		
 		
 		
@@ -92,7 +92,7 @@ public class GI_Battle {
 
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBackground(Color.RED);
+		frame.setBackground(Color.BLACK);
 		frame.setSize(1440, 800);
 		frame.setLocationRelativeTo(null);
 		Image icon = new ImageIcon(this.getClass().getResource("/iconWhite.png")).getImage();
