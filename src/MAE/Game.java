@@ -1,7 +1,11 @@
 package MAE;
+import java.awt.EventQueue;
+import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
+
+import javax.swing.SwingUtilities;
 
 public class Game {
 	
@@ -18,6 +22,8 @@ public class Game {
 	
 	private PlayerInterface gameInterface;
 	private GI_Battle playerInterface;
+	
+	private Teste testInterface;
 	
 	public Game() {
 		this.level = 0;
@@ -52,8 +58,14 @@ public class Game {
 		order.clear();
 		order.addAll(this.human.getTeam());
 		order.addAll(this.cpu.generateTeam(level));
+		Collections.shuffle(this.order);
+		this.playerInterface.loadOrder(order);
+		boolean ii = true;
+		while (ii) {}
+		return false;
+		/*
 		while(true) {
-			Collections.shuffle(this.order);
+			Collections.shuffle(this.order);	
 			for (Character character : order) {
 				if (!human.hasCharactersAlive()) {
 					return true;
@@ -63,7 +75,8 @@ public class Game {
 				}
 				//character.play(this.playerInterface);
 				return true;
-			}
-		}		
+			}	
+		}	
+		*/	
 	}
 };

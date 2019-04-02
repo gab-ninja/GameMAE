@@ -10,7 +10,7 @@ import java.awt.event.MouseEvent;
 
 public class GI_Battle {
 
-	private JFrame frame;
+	public JFrame frame;
 	private Game game;
 	
 	private Human human;
@@ -30,12 +30,31 @@ public class GI_Battle {
 	private volatile int choice = -1;
 	
 	private static final ArrayUtils au = new ArrayUtils();
+	
+	
+	/*
+	public static void main() {
+		System.out.println("Its in the main");
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					System.out.println("Its in the try");
+					GI_Battle window = new GI_Battle();
+					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+	*/
 
 
 	public GI_Battle(Game game) {
 		this.game = game;
 		initialize();
 		frame.setVisible(true);
+		
 	}
 	
 	public void setHuman(Human human) {
@@ -62,12 +81,29 @@ public class GI_Battle {
 		}
 	}
 	
+	
+	
+	public void loadOrder(ArrayList<Character> order) {
+		Runnable task = new Runnable() {
+			@Override
+			public void run() {
+				for (Character ch : order) {
+					if (!ch.isMonster()) {
+						System.out.println(ch);
+						while(au.numberOfOccurences(showBtnMonsters, true) == 0) {}
+					}
+				}
+				
+			}
+		};
+		new Thread(task).start();
+	}
+	
+	
+	
+	
+	
 	public int getMonsterToAttack(Hero ch) {
-		
-		
-		
-		
-		
 		return choice;
 		
 		/*ArrayList <Character> monstersAlive = this.cpu.getCharactersToAttack();
@@ -165,4 +201,5 @@ public class GI_Battle {
 		label_bk.setIcon(new ImageIcon( bk));
 		frame.getContentPane().add(label_bk);
 	}
+
 }
