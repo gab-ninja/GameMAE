@@ -237,6 +237,7 @@ public class GI_Battle implements Runnable {
 		
 		
 		JLabel label_bk = new JLabel("");
+		label_bk.setForeground(Color.RED);
 		label_bk.setFont(new Font("Arial", Font.BOLD, 15));
 		label_bk.setBounds(0, 0, 1422, 753);
 		label_bk.setIcon(new ImageIcon( bk));
