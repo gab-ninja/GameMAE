@@ -14,15 +14,11 @@ public class Computer extends Player {
 		}
 	}
 	
-	
-	
 	@Override
 	public void setInterface(GI_Battle playerInterface) {
 		super.setInterface(playerInterface);
 		this.playerInterface.setCPU(this);
 	}
-
-
 
 	public ArrayList<Character> generateTeam(int level) {
 		int numOfMonsters = level>2 ? 4 : 3;

@@ -14,14 +14,16 @@ public class Hero extends Character {
 		if (this.canPlay && this.isAlive()) {
 			this.monsterToAttack = null;
 			playerInterface.getMonsterToAttack(this);
+			System.out.println("waitting for monster to attack");
 			while(this.monsterToAttack == null) {
 				try {
 					Thread.sleep(200);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
-			this.attack(this.monsterToAttack);
 			}
+			System.out.println("monster to attack " + this.monsterToAttack);
+			this.attack(this.monsterToAttack);
 		} else if (!this.canPlay && this.isAlive()) {
 			this.unBlock();
 		}

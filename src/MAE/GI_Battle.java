@@ -53,24 +53,27 @@ public class GI_Battle implements Runnable {
 	}
 	
 	public void setComputerPlaying(Character monsterPlaying) {
+		System.out.println("SET CPU PLAYING: " + monsterPlaying + this.monsters);
 		this.isComputerPlaying = true;
 		lblPlayingHuman.setVisible(false);
 		lblPlayingCPU.setVisible(true);
 		this.deleteBorders();
-		Border border = BorderFactory.createLineBorder(Color.YELLOW, 5);
+		Border border = BorderFactory.createLineBorder(Color.YELLOW, 2);
 	    labelMonsters[monsters.indexOf(monsterPlaying)].setBorder(border);
 	}
 	
 	public void setHumanPlaying(Character heroPlaying) {
+		System.out.println("SET HUMAN PLAYING: " + heroPlaying + this.heroes);
 		this.isComputerPlaying = false;
 		lblPlayingHuman.setVisible(true);
 		lblPlayingCPU.setVisible(false);
 		this.deleteBorders();
-		Border border = BorderFactory.createLineBorder(Color.YELLOW, 5);
+		Border border = BorderFactory.createLineBorder(Color.YELLOW, 2);
 	    labelHeroes[heroes.indexOf(heroPlaying)].setBorder(border);
 	}
 	
 	public void loadHeroes(ArrayList<Character> characters) {
+		System.out.println("LOAD HEROES: " + characters);
 		this.heroes = characters;
 		for (int i=0; i<4; i++) {
 			heroImages[i] = new ImageIcon(this.getClass().getResource(characters.get(i).getImgName())).getImage();	
@@ -79,6 +82,7 @@ public class GI_Battle implements Runnable {
 	}
 	
 	public void loadMonsters(ArrayList<Character> characters) {
+		System.out.println("LOAD MONSTERS: " + characters);
 		this.monsters = characters;
 		for (int i=0; i<characters.size(); i++) {
 			monsterImages[i] = new ImageIcon(this.getClass().getResource(characters.get(i).getImgName())).getImage();	
@@ -88,8 +92,12 @@ public class GI_Battle implements Runnable {
 	
 	public void getMonsterToAttack(Hero ch) {
 		this.hero = ch;
+		System.out.println("GET MONSTERS TO ATTACK: " + this.monsters);
+		ArrayList<Character> monstersToAttack = this.cpu.getCharactersToAttack();
 		for (int i=0; i<this.monsters.size(); i++) {
-			this.isActiveBtnMonsters[i] = true;
+			if (monstersToAttack.contains(this.monsters.get(i))) {				
+				this.isActiveBtnMonsters[i] = true;
+			}
 		}
 	}
 	

@@ -10,12 +10,12 @@ public class Monster extends Character {
 	@Override
 	public void play(GI_Battle playerInterface) {
 		playerInterface.setComputerPlaying(this);
-		try {
-			Thread.sleep(2000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
+		if (this.canPlay && this.isAlive()) {
+			try {
+				Thread.sleep(2000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}			
 		}
-		
 	}
-
 }

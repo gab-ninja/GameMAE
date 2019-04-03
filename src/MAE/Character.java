@@ -111,6 +111,7 @@ abstract class Character {
 	}
 
 	public int[] attack(Character defender) {
+		System.out.println("ATTACK " + this + defender);
 		int[] res = {0,0};
 		if (this.isPoisoned()) {
 			this.takeDamage(POISON_DAMAGE, this);
@@ -130,7 +131,7 @@ abstract class Character {
 	
 	@Override
 	public String toString() {
-		return (this.isPoisoned() ? "*" : " ")  + this.name + " - " + this.health + "/" + this.healthMax + " HP";
+		return (this.isPoisoned() ? "(P) " : " ")  + this.name + " - " + this.health + "/" + this.healthMax + " HP";
 	}
 	
 	/*

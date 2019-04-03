@@ -41,7 +41,7 @@ public enum Monsters {
     	case Slime:
     		return new Slime(this.toString(), this.category, this.hpMax, this.attackMin, this.attackMax, this.imgName);
     	case Spider:
-    		return new Rogue(this.toString(), this.category, this.hpMax, this.attackMin, this.attackMax, this.imgName);
+    		return new Spider(this.toString(), this.category, this.hpMax, this.attackMin, this.attackMax, this.imgName);
 		default:
 			return new Monster(this.toString(), this.category, this.hpMax, this.attackMin, this.attackMax, this.imgName);    		
 		}

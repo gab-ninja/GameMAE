@@ -67,6 +67,7 @@ public class Game {
         		break;
         	}
         	this.human.healTeam();
+        	this.cpu.healTeam();
         }
         System.out.println("Game finished...");
         
@@ -89,6 +90,7 @@ public class Game {
 		
 		while(true) {
 			Collections.shuffle(this.order);	
+			System.out.println(order);
 			for (Character character : order) {
 				this.playerInterface.updateStats();
 				if (!human.hasCharactersAlive()) {

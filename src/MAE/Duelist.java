@@ -10,6 +10,7 @@ public class Duelist extends Hero {
 	@Override
 	public void play(GI_Battle playerInterface) {
 		super.play(playerInterface);
+		playerInterface.updateStats();
 		super.play(playerInterface);
 	}
 
