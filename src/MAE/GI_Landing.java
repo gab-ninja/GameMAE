@@ -28,8 +28,9 @@ public class GI_Landing implements Runnable {
 		frmGameMae.getContentPane().setLayout(null);
 		
 		JLabel lblGameMae = new JLabel("Player name:");
+		lblGameMae.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblGameMae.setForeground(Color.WHITE);
-		lblGameMae.setBounds(226, 408, 88, 22);
+		lblGameMae.setBounds(181, 408, 133, 22);
 		lblGameMae.setFont(new Font("Arial", Font.PLAIN, 14));
 		frmGameMae.getContentPane().add(lblGameMae);
 		
@@ -54,7 +55,7 @@ public class GI_Landing implements Runnable {
 			}
 		});
 		btnStartGame.setBackground(Color.WHITE);
-		btnStartGame.setBounds(490, 407, 112, 25);
+		btnStartGame.setBounds(490, 407, 143, 25);
 		frmGameMae.getContentPane().add(btnStartGame);
 		
 		JLabel labelBK = new JLabel("");

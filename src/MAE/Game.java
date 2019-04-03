@@ -15,7 +15,6 @@ public class Game {
 	private Human human;
 	private String playerName;
 	
-	//private PlayerInterface gameInterface;
 	private GI_Battle playerInterface;
 	
 	private boolean hasReceivedCharacters;
@@ -65,7 +64,8 @@ public class Game {
         	this.playerInterface.setCPUstatus("");
         	this.playerInterface.setHumanStatus("All heroes were revived");
         }
-        System.out.println("Game finished...");
+        this.playerInterface.closeWindow();
+        // System.out.println("Game finished...");
         
 	}
 	
@@ -87,13 +87,19 @@ public class Game {
 		
 		while(true) {
 			Collections.shuffle(this.order);	
-			System.out.println("ORDER: " + order);
+			// System.out.println("ORDER: " + order);
 			for (Character character : order) {
 				this.playerInterface.updateStats();
 				if (!human.hasCharactersAlive()) {
+					this.playerInterface.msgbox(":( The CPU won. A great player is the one that never gives up!");
 					return true;
 				}
 				if (!cpu.hasCharactersAlive()) {
+					if (level == NUMBER_OF_LEVELS) {
+						this.playerInterface.msgbox("Congratulations, " + this.human.getName() +" you won the game!");
+					} else {
+						this.playerInterface.msgbox("The heroes defeated the monsters on this level and are now resting for the next one");
+					}
 					return false;
 				}
 				character.play(this.playerInterface);

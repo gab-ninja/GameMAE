@@ -28,7 +28,7 @@ public class Cleric extends Hero {
 
 	@Override
 	public void play(GI_Battle playerInterface) {
-		System.out.println("cleric is playing");
+		// System.out.println("cleric is playing");
 		playerInterface.setHumanPlaying(this);
 		if (this.canPlay && this.isAlive()) {
 			this.heroToHeal = null;

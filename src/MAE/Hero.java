@@ -14,7 +14,7 @@ public class Hero extends Character {
 		if (this.canPlay && this.isAlive()) {
 			this.monsterToAttack = null;
 			playerInterface.getMonsterToAttack(this);
-			System.out.println("waitting for monster to attack");
+			// System.out.println("waitting for monster to attack");
 			while(this.monsterToAttack == null) {
 				try {
 					Thread.sleep(200);
@@ -22,7 +22,7 @@ public class Hero extends Character {
 					e.printStackTrace();
 				}
 			}
-			System.out.println("monster to attack " + this.monsterToAttack);
+			// System.out.println("monster to attack " + this.monsterToAttack);
 			String result = this.attack(this.monsterToAttack);
 			playerInterface.setHumanStatus(result);
 		} else if (!this.canPlay && this.isAlive()) {

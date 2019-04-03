@@ -2,7 +2,6 @@ package MAE;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.concurrent.CountDownLatch;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -13,7 +12,6 @@ import java.awt.event.MouseEvent;
 public class GI_Battle implements Runnable {
 
 	public JFrame frame;
-	private Game game;
 	
 	private Human human;
 	private Computer cpu;
@@ -22,11 +20,13 @@ public class GI_Battle implements Runnable {
 	private Image[] heroImages = new Image[4];
 	private JLabel[] labelHeroes = new JLabel[4];
 	private boolean[] isActiveBtnHeroes = {false, false, false, false};
+	private JProgressBar[] monstersLive = new JProgressBar[4];
 
 	private ArrayList <Character> monsters;
 	private Image[] monsterImages = new Image[4];
 	private JLabel[] labelMonsters = new JLabel[4];
 	private boolean[] isActiveBtnMonsters = {false, false, false, false};
+	private JProgressBar[] heroesLive = new JProgressBar[4];
 	
 	private JLabel lblCPUstats;
 	private JLabel lblHstats;
@@ -38,15 +38,14 @@ public class GI_Battle implements Runnable {
 	private Image fainted = new ImageIcon(this.getClass().getResource("/fainted.png")).getImage();
 	
 	private Hero hero;
-	private int numberOfMonsters;
-	private boolean isComputerPlaying;
-	
-	private static final ArrayUtils au = new ArrayUtils();
 
 	public GI_Battle(Game game) {
-		this.game = game;
 		initialize();		
 	}
+	
+	public void msgbox(String s){
+		   JOptionPane.showMessageDialog(null, s);
+		}
 	
 	public void setHuman(Human human) {
 		this.human = human;
@@ -57,8 +56,7 @@ public class GI_Battle implements Runnable {
 	}
 	
 	public void setComputerPlaying(Character monsterPlaying) {
-		System.out.println("SET CPU PLAYING: " + monsterPlaying + this.monsters);
-		this.isComputerPlaying = true;
+		// System.out.println("SET CPU PLAYING: " + monsterPlaying + this.monsters);
 		lblPlayingHuman.setVisible(false);
 		lblPlayingCPU.setVisible(true);
 		this.deleteBorders();
@@ -67,8 +65,7 @@ public class GI_Battle implements Runnable {
 	}
 	
 	public void setHumanPlaying(Character heroPlaying) {
-		System.out.println("SET HUMAN PLAYING: " + heroPlaying + this.heroes);
-		this.isComputerPlaying = false;
+		// System.out.println("SET HUMAN PLAYING: " + heroPlaying + this.heroes);
 		lblPlayingHuman.setVisible(true);
 		lblPlayingCPU.setVisible(false);
 		this.deleteBorders();
@@ -85,18 +82,20 @@ public class GI_Battle implements Runnable {
 	}
 	
 	public void loadHeroes(ArrayList<Character> characters) {
-		System.out.println("LOAD HEROES: " + characters);
+		// System.out.println("LOAD HEROES: " + characters);
 		this.heroes = characters;
 		for (int i=0; i<4; i++) {
+			heroesLive[i].setMaximum(characters.get(i).getMaxHealth());
 			heroImages[i] = new ImageIcon(this.getClass().getResource(characters.get(i).getImgName())).getImage();	
 			labelHeroes[i].setIcon(new ImageIcon(heroImages[i]));
 		}
 	}
 	
 	public void loadMonsters(ArrayList<Character> characters) {
-		System.out.println("LOAD MONSTERS: " + characters);
+		// System.out.println("LOAD MONSTERS: " + characters);
 		this.monsters = characters;
 		for (int i=0; i<characters.size(); i++) {
+			monstersLive[i].setMaximum(characters.get(i).getMaxHealth());
 			monsterImages[i] = new ImageIcon(this.getClass().getResource(characters.get(i).getImgName())).getImage();	
 			labelMonsters[i].setIcon(new ImageIcon(monsterImages[i]));
 		}
@@ -112,7 +111,7 @@ public class GI_Battle implements Runnable {
 	
 	public void getMonsterToAttack(Hero ch) {
 		this.hero = ch;
-		System.out.println("GET MONSTERS TO ATTACK: " + this.monsters);
+		// System.out.println("GET MONSTERS TO ATTACK: " + this.monsters);
 		ArrayList<Character> monstersToAttack = this.cpu.getCharactersToAttack();
 		for (int i=0; i<this.monsters.size(); i++) {
 			if (monstersToAttack.contains(this.monsters.get(i))) {				
@@ -123,24 +122,28 @@ public class GI_Battle implements Runnable {
 	
 	public void getHeroToHeal(Hero ch) {
 		this.hero = ch;
-		System.out.println("GET HEROES TO HEAL: " + this.heroes + " ");
+		// System.out.println("GET HEROES TO HEAL: " + this.heroes + " ");
 		ArrayList<Character> heroesToHeal = this.human.getCharactersAlive();
 		heroesToHeal.remove(ch);
 		for (int i=0; i<this.heroes.size(); i++) {
 			if (heroesToHeal.contains(this.heroes.get(i))) {
 				this.isActiveBtnHeroes[i] = true;
-				System.out.print("true ");
+				// System.out.print("true ");
 			} else {
-				System.out.print("false ");
+				// System.out.print("false ");
 			}
 		}
-		System.out.println(" ");
+		// System.out.println(" ");
 	}
 	
 	public void updateStats() {
 		this.monsters = this.cpu.getTeam();
+		if (this.monsters.size() == 4) {
+			monstersLive[3].setVisible(true);
+		}
 		String toShow = "<html><body>";
 		for (Character monster : monsters) {
+			monstersLive[monsters.indexOf(monster)].setValue(monster.getHealth());
 			toShow += monster.toString();
 			toShow += "<br><br>";
 		}
@@ -150,6 +153,7 @@ public class GI_Battle implements Runnable {
 		this.heroes = this.human.getTeam();
 		toShow = "<html><body>";
 		for (Character hero : heroes) {
+			heroesLive[heroes.indexOf(hero)].setValue(hero.getHealth());
 			toShow += hero.toString();
 			toShow += "<br><br>";
 		}
@@ -159,6 +163,10 @@ public class GI_Battle implements Runnable {
 		this.checkDead();
 	}
 
+	public void closeWindow() {
+		this.frame.setVisible(false);
+	}
+	
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBackground(Color.BLACK);
@@ -299,12 +307,61 @@ public class GI_Battle implements Runnable {
 		lblPlayingCPU.setVisible(false);
 		frame.getContentPane().add(lblPlayingCPU);
 		
-		lblCPUstats = new JLabel("");
-		lblCPUstats.setFont(new Font("Arial", Font.BOLD, 15));
-		lblCPUstats.setVerticalAlignment(SwingConstants.TOP);
-		lblCPUstats.setForeground(Color.WHITE);
-		lblCPUstats.setBounds(27, 60, 183, 131);
-		frame.getContentPane().add(lblCPUstats);
+		statusCPU = new JLabel("");
+		statusCPU.setVerticalAlignment(SwingConstants.TOP);
+		statusCPU.setForeground(Color.WHITE);
+		statusCPU.setFont(new Font("Arial", Font.BOLD, 15));
+		statusCPU.setBounds(27, 204, 183, 131);
+		frame.getContentPane().add(statusCPU);
+		
+		monstersLive[0] = new JProgressBar();
+		monstersLive[0].setForeground(Color.RED);
+		monstersLive[0].setBackground(Color.LIGHT_GRAY);
+		monstersLive[0].setBounds(27, 80, 180, 5);
+		frame.getContentPane().add(monstersLive[0]);
+		
+		monstersLive[1] = new JProgressBar();
+		monstersLive[1].setForeground(Color.RED);
+		monstersLive[1].setBackground(Color.LIGHT_GRAY);
+		monstersLive[1].setBounds(27, 116, 180, 5);
+		frame.getContentPane().add(monstersLive[1]);
+		
+		monstersLive[2] = new JProgressBar();
+		monstersLive[2].setBackground(Color.LIGHT_GRAY);
+		monstersLive[2].setForeground(Color.RED);
+		monstersLive[2].setBounds(27, 152, 180, 5);
+		frame.getContentPane().add(monstersLive[2]);
+		
+		monstersLive[3] = new JProgressBar();
+		monstersLive[3].setForeground(Color.RED);
+		monstersLive[3].setBackground(Color.LIGHT_GRAY);
+		monstersLive[3].setBounds(27, 187, 180, 5);
+		monstersLive[3].setVisible(false);
+		frame.getContentPane().add(monstersLive[3]);
+		
+		heroesLive[0] = new JProgressBar();
+		heroesLive[0].setForeground(Color.RED);
+		heroesLive[0].setBackground(Color.LIGHT_GRAY);
+		heroesLive[0].setBounds(27, 489, 180, 5);
+		frame.getContentPane().add(heroesLive[0]);
+		
+		heroesLive[1] = new JProgressBar();
+		heroesLive[1].setForeground(Color.RED);
+		heroesLive[1].setBackground(Color.LIGHT_GRAY);
+		heroesLive[1].setBounds(27, 525, 180, 5);
+		frame.getContentPane().add(heroesLive[1]);
+		
+		heroesLive[2] = new JProgressBar();
+		heroesLive[2].setForeground(Color.RED);
+		heroesLive[2].setBackground(Color.LIGHT_GRAY);
+		heroesLive[2].setBounds(27, 561, 180, 5);
+		frame.getContentPane().add(heroesLive[2]);
+
+		heroesLive[3] = new JProgressBar();
+		heroesLive[3].setForeground(Color.RED);
+		heroesLive[3].setBackground(Color.LIGHT_GRAY);
+		heroesLive[3].setBounds(27, 596, 180, 5);
+		frame.getContentPane().add(heroesLive[3]);
 		
 		lblHstats = new JLabel("");
 		lblHstats.setVerticalAlignment(SwingConstants.TOP);
@@ -313,12 +370,12 @@ public class GI_Battle implements Runnable {
 		lblHstats.setBounds(27, 470, 183, 131);
 		frame.getContentPane().add(lblHstats);
 		
-		statusCPU = new JLabel("");
-		statusCPU.setVerticalAlignment(SwingConstants.TOP);
-		statusCPU.setForeground(Color.WHITE);
-		statusCPU.setFont(new Font("Arial", Font.BOLD, 15));
-		statusCPU.setBounds(27, 204, 183, 131);
-		frame.getContentPane().add(statusCPU);
+		lblCPUstats = new JLabel("");
+		lblCPUstats.setFont(new Font("Arial", Font.BOLD, 15));
+		lblCPUstats.setVerticalAlignment(SwingConstants.TOP);
+		lblCPUstats.setForeground(Color.WHITE);
+		lblCPUstats.setBounds(27, 60, 183, 131);
+		frame.getContentPane().add(lblCPUstats);
 		
 		statusHuman = new JLabel("");
 		statusHuman.setVerticalAlignment(SwingConstants.TOP);
@@ -326,7 +383,6 @@ public class GI_Battle implements Runnable {
 		statusHuman.setFont(new Font("Arial", Font.BOLD, 15));
 		statusHuman.setBounds(27, 609, 183, 131);
 		frame.getContentPane().add(statusHuman);
-		
 		
 		JLabel label_bk = new JLabel("");
 		label_bk.setForeground(Color.BLACK);

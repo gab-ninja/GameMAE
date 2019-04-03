@@ -38,6 +38,10 @@ abstract class Character {
 		return health;
 	}
 	
+	public int getMaxHealth() {
+		return healthMax;
+	}
+	
 	public int getAttackMin() {
 		return this.attackMin;
 	}
@@ -111,7 +115,7 @@ abstract class Character {
 	}
 
 	public String attack(Character defender) {
-		System.out.println("ATTACK " + this + defender);
+		// System.out.println("ATTACK " + this + defender);
 		if (this.isPoisoned()) {
 			this.takeDamage(POISON_DAMAGE, this);
 			this.poison --;
@@ -130,21 +134,5 @@ abstract class Character {
 		return (this.isPoisoned() ? "(P) " : " ")  + this.name + " - " + this.health + "/" + this.healthMax + " HP";
 	}
 	
-	/*
-	@Override
-	public String toString() {
-		if (this.category.toString().length() +  this.name.length() < 10) {
-			return name + (this.isPoisoned() ? "*(" : " (") + this.category + ") \t\t" + this.health + "/" + this.healthMax + " HP";
-		}
-		return name + (this.isPoisoned() ? "*(" : " (")  + this.category + ") \t" + this.health + "/" + this.healthMax + " HP";
-	}
-	
-	public String stats() {
-		if (this.category.toString().length() +  this.name.length() < 18) {
-			return name + " (" + this.category + ")\t\t" + this.healthMax + "\t" + this.attackMin + "/" + this.attackMax;
-		}
-		return name + " (" + this.category + ")\t" + this.healthMax + "\t" + this.attackMin + "/" + this.attackMax;
-	}
-	*/
 
 };
