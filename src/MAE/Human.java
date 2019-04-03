@@ -7,13 +7,17 @@ import MAE.Character;
 public class Human extends Player {
 	private String name;
 	
-	public Human(ArrayList<Character> characters, String name, GI_Battle playerInterface) {
-		super(playerInterface);
+	public Human(ArrayList<Character> characters, String name) {
+		super();
 		this.setTeam(characters);
 		this.name = name;
-		this.playerInterface = playerInterface;
+	}
+	
+	@Override
+	public void setInterface(GI_Battle playerInterface) {
+		super.setInterface(playerInterface);
+		this.playerInterface.setHuman(this);
 		this.playerInterface.loadHeroes(this.team);
-		
 	}
 
 	public String getName() {

@@ -127,7 +127,13 @@ abstract class Character {
 		}
 		return res;
 	}
-
+	
+	@Override
+	public String toString() {
+		return (this.isPoisoned() ? "*" : " ")  + this.name + " - " + this.health + "/" + this.healthMax + " HP";
+	}
+	
+	/*
 	@Override
 	public String toString() {
 		if (this.category.toString().length() +  this.name.length() < 10) {
@@ -142,6 +148,6 @@ abstract class Character {
 		}
 		return name + " (" + this.category + ")\t" + this.healthMax + "\t" + this.attackMin + "/" + this.attackMax;
 	}
-	
+	*/
 
 };

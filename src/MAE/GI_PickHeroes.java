@@ -6,7 +6,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.*;
 
-public class GI_PickHeroes {
+public class GI_PickHeroes implements Runnable {
 
 	private JFrame frame;
 	private ArrayList <Character> heroes = new ArrayList<Character>();
@@ -21,7 +21,6 @@ public class GI_PickHeroes {
 			heroes.add(hero.generateCharacterObject());
 		}
 		initialize();
-		frame.setVisible(true);
 	}
 	
 	private boolean changeState(int labelNumber) {
@@ -262,5 +261,10 @@ public class GI_PickHeroes {
 			characters.add(heroes.get(arr[i]));
 		}
 		return characters;
+	}
+
+	@Override
+	public void run() {
+		frame.setVisible(true);
 	}
 }

@@ -80,7 +80,7 @@ public class PlayerInterface {
 				if (arr.contains(heroesChoice, j)) {
 					continue;
 				} 
-				System.out.printf("%d: %s \n", j, heroes.get(j).stats());
+				//System.out.printf("%d: %s \n", j, heroes.get(j).stats());
 				
 			}
 			System.out.println("Pick an hero, " + (4-i) + " left");

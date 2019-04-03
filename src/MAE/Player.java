@@ -11,14 +11,17 @@ abstract class Player {
 	
 	protected GI_Battle playerInterface;
 
-	public Player(GI_Battle playerInterface) {
+	public Player( ) {
 		this.damageGiven = 0;
 		this.damageTaken = 0;
-		this.playerInterface = playerInterface;
 	}
 
+	public void setInterface(GI_Battle playerInterface) {
+		this.playerInterface = playerInterface;
+	}
+	
 	public ArrayList<Character> getTeam() {
-		return team;
+		return this.team;
 	}
 
 	public int getDamageGiven() {

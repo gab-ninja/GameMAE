@@ -9,7 +9,12 @@ public class Monster extends Character {
 
 	@Override
 	public void play(GI_Battle playerInterface) {
-		// TODO Auto-generated method stub
+		playerInterface.setComputerPlaying(this);
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		
 	}
 

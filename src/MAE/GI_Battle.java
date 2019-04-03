@@ -5,10 +5,12 @@ import java.util.ArrayList;
 import java.util.concurrent.CountDownLatch;
 
 import javax.swing.*;
+import javax.swing.border.Border;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class GI_Battle {
+public class GI_Battle implements Runnable {
 
 	public JFrame frame;
 	private Game game;
@@ -24,37 +26,22 @@ public class GI_Battle {
 	private ArrayList <Character> monsters;
 	private Image[] monsterImages = new Image[4];
 	private JLabel[] labelMonsters = new JLabel[4];
-	private JButton[] btnMonsters = new JButton[4];
-	private boolean[] showBtnMonsters = {false, false, false, false};
+	private boolean[] isActiveBtnMonsters = {false, false, false, false};
 	
-	private volatile int choice = -1;
+	private JLabel lblCPUstats;
+	private JLabel lblHstats;
+	private JLabel lblPlayingCPU;
+	private JLabel lblPlayingHuman;
+	
+	private Hero hero;
+	private int numberOfMonsters;
+	private boolean isComputerPlaying;
 	
 	private static final ArrayUtils au = new ArrayUtils();
-	
-	
-	/*
-	public static void main() {
-		System.out.println("Its in the main");
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					System.out.println("Its in the try");
-					GI_Battle window = new GI_Battle();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-	*/
-
 
 	public GI_Battle(Game game) {
 		this.game = game;
-		initialize();
-		frame.setVisible(true);
-		
+		initialize();		
 	}
 	
 	public void setHuman(Human human) {
@@ -63,6 +50,24 @@ public class GI_Battle {
 	
 	public void setCPU(Computer cpu) {
 		this.cpu = cpu;
+	}
+	
+	public void setComputerPlaying(Character monsterPlaying) {
+		this.isComputerPlaying = true;
+		lblPlayingHuman.setVisible(false);
+		lblPlayingCPU.setVisible(true);
+		this.deleteBorders();
+		Border border = BorderFactory.createLineBorder(Color.YELLOW, 5);
+	    labelMonsters[monsters.indexOf(monsterPlaying)].setBorder(border);
+	}
+	
+	public void setHumanPlaying(Character heroPlaying) {
+		this.isComputerPlaying = false;
+		lblPlayingHuman.setVisible(true);
+		lblPlayingCPU.setVisible(false);
+		this.deleteBorders();
+		Border border = BorderFactory.createLineBorder(Color.YELLOW, 5);
+	    labelHeroes[heroes.indexOf(heroPlaying)].setBorder(border);
 	}
 	
 	public void loadHeroes(ArrayList<Character> characters) {
@@ -81,49 +86,31 @@ public class GI_Battle {
 		}
 	}
 	
-	
-	
-	public void loadOrder(ArrayList<Character> order) {
-		Runnable task = new Runnable() {
-			@Override
-			public void run() {
-				for (Character ch : order) {
-					if (!ch.isMonster()) {
-						System.out.println(ch);
-						while(au.numberOfOccurences(showBtnMonsters, true) == 0) {}
-					}
-				}
-				
-			}
-		};
-		new Thread(task).start();
+	public void getMonsterToAttack(Hero ch) {
+		this.hero = ch;
+		for (int i=0; i<this.monsters.size(); i++) {
+			this.isActiveBtnMonsters[i] = true;
+		}
 	}
 	
-	
-	
-	
-	
-	public int getMonsterToAttack(Hero ch) {
-		return choice;
-		
-		/*ArrayList <Character> monstersAlive = this.cpu.getCharactersToAttack();
-		String[] choices = new String[monstersAlive.size()];
-		
-		int i=0;
+	public void updateStats() {
+		this.monsters = this.cpu.getTeam();
+		String toShow = "<html><body>";
 		for (Character monster : monsters) {
-			if (monstersAlive.contains(monster)) {
-				choices[i] = monster.getName();
-				i++;
-				labelMonsters[monsters.indexOf(monster)].setBorder(BorderFactory.createLineBorder(Color.YELLOW, 5));
-				labelMonsters[monsters.indexOf(monster)].repaint();
-				handleMonsters[monsters.indexOf(monster)] = true;
-			}
+			toShow += monster.toString();
+			toShow += "<br><br>";
 		}
-		*/
-		//JList list = new JList(choices);
-        //ListDialog dialog = new ListDialog("Please select an item in the list: ", list);
-        //dialog.setOnOk(e -> System.out.println("Chosen item: " + dialog.getSelectedItem()));
-        //dialog.show();
+		toShow += "</body></html>";
+		lblCPUstats.setText(toShow);
+		
+		this.heroes = this.human.getTeam();
+		toShow = "<html><body>";
+		for (Character hero : heroes) {
+			toShow += hero.toString();
+			toShow += "<br><br>";
+		}
+		toShow += "</body></html>";
+		lblHstats.setText(toShow);
 	}
 
 	private void initialize() {
@@ -137,29 +124,6 @@ public class GI_Battle {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		Image bk = new ImageIcon(this.getClass().getResource("/BattleGround.png")).getImage();
-		
-
-		btnMonsters[0] = new JButton("Attack");
-		btnMonsters[0].addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				choice = 0;
-			}
-		});
-		btnMonsters[0].setBackground(Color.RED);
-		btnMonsters[0].setBounds(315, 296, 169, 78);
-		frame.getContentPane().add(btnMonsters[0]);
-		
-		btnMonsters[1] = new JButton("Attack");
-		btnMonsters[1].addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				choice = 1;
-			}
-		});
-		btnMonsters[1].setBackground(Color.RED);
-		btnMonsters[1].setBounds(573, 296, 169, 78);
-		frame.getContentPane().add(btnMonsters[1]);
 		
 		
 		labelHeroes[0] = new JLabel("");
@@ -181,25 +145,113 @@ public class GI_Battle {
 		
 		labelMonsters[3] = new JLabel("");
 		labelMonsters[3].setBounds(1122, 13, 252, 353);
+		labelMonsters[3].setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		labelMonsters[3].addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (isActiveBtnMonsters[3]) {
+					resetMonstersBtn();
+					hero.setMonsterToAttack(monsters.get(3));
+				}
+			}
+		});
 		frame.getContentPane().add(labelMonsters[3]);
 		
 		labelMonsters[2] = new JLabel("");
 		labelMonsters[2].setBounds(834, 13, 252, 353);
+		labelMonsters[2].setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		labelMonsters[2].addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (isActiveBtnMonsters[2]) {
+					resetMonstersBtn();
+					hero.setMonsterToAttack(monsters.get(2));
+				}
+			}
+		});
 		frame.getContentPane().add(labelMonsters[2]);
 		
 		labelMonsters[1] = new JLabel("");
 		labelMonsters[1].setBounds(552, 13, 252, 353);
+		labelMonsters[1].setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		labelMonsters[1].addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (isActiveBtnMonsters[1]) {
+					resetMonstersBtn();
+					hero.setMonsterToAttack(monsters.get(1));
+				}
+			}
+		});
 		frame.getContentPane().add(labelMonsters[1]);
 		
 		labelMonsters[0] = new JLabel("");
 		labelMonsters[0].setBounds(278, 13, 252, 353);
+		labelMonsters[0].setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		labelMonsters[0].addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (isActiveBtnMonsters[0]) {
+					resetMonstersBtn();
+					hero.setMonsterToAttack(monsters.get(0));
+				}
+			}
+		});
 		frame.getContentPane().add(labelMonsters[0]);
+		
+		lblPlayingHuman = new JLabel("(Playing)");
+		lblPlayingHuman.setFont(new Font("Arial", Font.BOLD, 16));
+		lblPlayingHuman.setForeground(Color.ORANGE);
+		lblPlayingHuman.setBounds(100, 428, 91, 34);
+		lblPlayingHuman.setVisible(false);
+		frame.getContentPane().add(lblPlayingHuman);
+		
+		lblPlayingCPU = new JLabel("(Playing)");
+		lblPlayingCPU.setForeground(Color.ORANGE);
+		lblPlayingCPU.setFont(new Font("Arial", Font.BOLD, 16));
+		lblPlayingCPU.setBounds(120, 13, 91, 45);
+		lblPlayingCPU.setVisible(false);
+		frame.getContentPane().add(lblPlayingCPU);
+		
+		lblCPUstats = new JLabel("");
+		lblCPUstats.setFont(new Font("Arial", Font.BOLD, 15));
+		lblCPUstats.setVerticalAlignment(SwingConstants.TOP);
+		lblCPUstats.setForeground(Color.WHITE);
+		lblCPUstats.setBounds(27, 60, 183, 131);
+		frame.getContentPane().add(lblCPUstats);
+		
+		lblHstats = new JLabel("");
+		lblHstats.setVerticalAlignment(SwingConstants.TOP);
+		lblHstats.setForeground(Color.WHITE);
+		lblHstats.setFont(new Font("Arial", Font.BOLD, 15));
+		lblHstats.setBounds(27, 470, 183, 131);
+		frame.getContentPane().add(lblHstats);
 		
 		
 		JLabel label_bk = new JLabel("");
+		label_bk.setFont(new Font("Arial", Font.BOLD, 15));
 		label_bk.setBounds(0, 0, 1422, 753);
 		label_bk.setIcon(new ImageIcon( bk));
 		frame.getContentPane().add(label_bk);
 	}
+	
+	private void resetMonstersBtn() {
+		for (int i=0; i<4; i++) {
+			this.isActiveBtnMonsters[i] = false;
+		}
+	}
+	
+	private void deleteBorders() {
+		Border emptyBorder = BorderFactory.createLineBorder(Color.YELLOW, 0);
+		for(int i=0; i<4; i++) {
+			labelMonsters[i].setBorder(emptyBorder);
+			labelHeroes[i].setBorder(emptyBorder);
+		}
+	}
 
+	@Override
+	public void run() {
+		frame.setVisible(true);
+		
+	}
 }

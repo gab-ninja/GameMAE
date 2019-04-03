@@ -7,13 +7,23 @@ public class Computer extends Player {
 	
 	private static ArrayUtils au = new ArrayUtils();
 	
-	public Computer(GI_Battle playerInterface) {
-		super(playerInterface);
+	public Computer() {
+		super();
 		for (Monsters monster : Monsters.values()) {
 			this.monsters.add(monster.generateCharacterObject());
 		}
 	}
 	
+	
+	
+	@Override
+	public void setInterface(GI_Battle playerInterface) {
+		super.setInterface(playerInterface);
+		this.playerInterface.setCPU(this);
+	}
+
+
+
 	public ArrayList<Character> generateTeam(int level) {
 		int numOfMonsters = level>2 ? 4 : 3;
 		ArrayList <Character> characters = new ArrayList<Character>();
@@ -23,7 +33,6 @@ public class Computer extends Player {
 		}
 		this.setTeam(characters);
 		this.playerInterface.loadMonsters(this.team);
-		this.playerInterface.setCPU(this);
 		return this.team;
 		
 	}

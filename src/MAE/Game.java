@@ -23,60 +23,82 @@ public class Game {
 	private PlayerInterface gameInterface;
 	private GI_Battle playerInterface;
 	
-	private Teste testInterface;
+	private boolean hasReceivedCharacters;
+	
 	
 	public Game() {
 		this.level = 0;
+		this.playerName = "";
+		this.hasReceivedCharacters = false;
 	}
 
 	public void startGame() {
-		new GI_Landing(this);
+		Thread t1 = new Thread(new GI_Landing(this));
+        t1.start();
+        while (this.playerName.equals("")) {
+	        try {
+				Thread.sleep(500);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+        }
+        
+        Thread t2 = new Thread(new GI_PickHeroes(this));
+        t2.start();
+        while (!this.hasReceivedCharacters) {
+	        try {
+				Thread.sleep(500);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+        }
+        
+        this.playerInterface = new GI_Battle(this);
+        Thread t3 = new Thread(this.playerInterface);
+        t3.start();
+        
+        this.human.setInterface(this.playerInterface);
+        this.cpu.setInterface(this.playerInterface);
+        
+        boolean computerWon = false;
+        for (int i=1; i<=NUMBER_OF_LEVELS; i++) {
+        	computerWon = playLevel(i);
+        	if (computerWon) {
+        		break;
+        	}
+        	this.human.healTeam();
+        }
+        System.out.println("Game finished...");
+        
 	}
 	
 	public void receivePlayerName(String playerName) {
 		this.playerName = playerName;
-		new GI_PickHeroes(this);
 	}
 
 	public void receivePlayerCharacters(ArrayList <Character> characters) {
-		this.playerInterface = new GI_Battle(this);
-		this.human = new Human(characters, this.playerName, this.playerInterface);
-		this.cpu = new Computer(this.playerInterface);		
-		
-		boolean computerWon = false;
-		for (int i=1; i<=NUMBER_OF_LEVELS; i++) {
-			computerWon = playLevel(i);
-			if (computerWon) {
-				break;
-			}
-			this.human.healTeam();
-		}
-		System.out.println("Game finished...");
+		this.human = new Human(characters, this.playerName);
+		this.cpu = new Computer();	
+		this.hasReceivedCharacters = true;	
 	}
 	
 	public boolean playLevel(int level) {
 		order.clear();
 		order.addAll(this.human.getTeam());
 		order.addAll(this.cpu.generateTeam(level));
-		Collections.shuffle(this.order);
-		this.playerInterface.loadOrder(order);
-		boolean ii = true;
-		while (ii) {}
-		return false;
-		/*
+		
 		while(true) {
 			Collections.shuffle(this.order);	
 			for (Character character : order) {
+				this.playerInterface.updateStats();
 				if (!human.hasCharactersAlive()) {
 					return true;
 				}
 				if (!cpu.hasCharactersAlive()) {
 					return false;
 				}
-				//character.play(this.playerInterface);
-				return true;
+				character.play(this.playerInterface);
 			}	
 		}	
-		*/	
 	}
 };

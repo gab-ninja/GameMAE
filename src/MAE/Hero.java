@@ -2,6 +2,7 @@ package MAE;
 
 
 public class Hero extends Character {
+	private Character monsterToAttack;
 	
 	public Hero(String name, Categories category, int healthMax, int attackMin, int attackMax, String imgName) {
 		super(name, category, healthMax, attackMin, attackMax, imgName, false);
@@ -9,12 +10,25 @@ public class Hero extends Character {
 
 	@Override
 	public void play(GI_Battle playerInterface) {
-		if (this.canPlay && this.health > 0) {
-			int choice = playerInterface.getMonsterToAttack(this);
-		} else if (!this.canPlay && this.health >  0) {
+		playerInterface.setHumanPlaying(this);
+		if (this.canPlay && this.isAlive()) {
+			this.monsterToAttack = null;
+			playerInterface.getMonsterToAttack(this);
+			while(this.monsterToAttack == null) {
+				try {
+					Thread.sleep(200);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			this.attack(this.monsterToAttack);
+			}
+		} else if (!this.canPlay && this.isAlive()) {
 			this.unBlock();
 		}
-		return;
+	}
+	
+	public void setMonsterToAttack(Character monsterToAttack) {
+		this.monsterToAttack = monsterToAttack;
 	}
 }
 

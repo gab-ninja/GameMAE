@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class GI_Landing {
+public class GI_Landing implements Runnable {
 	private JFrame frmGameMae;
 	private JTextField textField;
 	private Game game;
@@ -13,7 +13,6 @@ public class GI_Landing {
 	public GI_Landing(Game game) {
 		this.game = game;
 		initialize();
-		frmGameMae.setVisible(true);
 	}
 
 	private void initialize() {
@@ -67,5 +66,10 @@ public class GI_Landing {
 	
 	private void msgbox(String s){
 	   JOptionPane.showMessageDialog(null, s);
+	}
+
+	@Override
+	public void run() {
+		frmGameMae.setVisible(true);
 	}
 }
