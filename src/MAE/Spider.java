@@ -7,9 +7,9 @@ public class Spider extends Monster {
 	}
 
 	@Override
-	public int[] attack(Character defender) {
+	public String attack(Character defender) {
 		defender.poison((int) Math.random() * 3 + 1);
-		return super.attack(defender);
+		return (super.attack(defender) + " and also, poisoned it!");
 	}
 	
 	

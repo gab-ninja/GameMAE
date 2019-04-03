@@ -13,7 +13,7 @@ abstract class Character {
 	
 	protected boolean canPlay;
 	
-	private static final int POISON_DAMAGE = 20;
+	protected static final int POISON_DAMAGE = 20;
 
 	public Character(String name, Categories category, int healthMax, int attackMin, int attackMax, String imgName, boolean isMonster) {
 		super();
@@ -87,46 +87,42 @@ abstract class Character {
 		this.poison = 0;
 	}
 	
-	public void heal(int heal) {
+	public int heal(int heal) {
+		int initialHealth = this.health;
 		this.health += heal;
 		if (this.healthMax < this.health) {
 			this.health = this.healthMax;
 		}
+		return (this.health - initialHealth);
 	}
 
-	public boolean takeDamage(int damage, Character attacker) {
+	public String takeDamage(int damage, Character attacker) {
+		int initialHealth = this.health;
 		this.health -= damage;
 		if (this.health <= 0) {
 			this.health = 0;
 			this.poison = 0;
 		}
-		if (this.health > this.healthMax) {
-			this.health = this.healthMax;
-		}
-		return true;
+		return attacker.getName() + " attacked " + this.name + " for " + (initialHealth - this.health) + "HP's";
 	}
 	
 	public void poison (int turns) {
 		this.poison = this.poison + turns >= 3 ? 3 : this.poison + turns;
 	}
 
-	public int[] attack(Character defender) {
+	public String attack(Character defender) {
 		System.out.println("ATTACK " + this + defender);
-		int[] res = {0,0};
 		if (this.isPoisoned()) {
 			this.takeDamage(POISON_DAMAGE, this);
 			this.poison --;
 			if(!this.isAlive()) {
-				return res;
+				return "Although " + this.getName() + " attacked " + defender.getName() + 
+						", the poison was enough to kill it";
 			}
 		}
 		int attack = this.attackMin + (int)(Math.random() * ((this.attackMax - this.attackMin) + 1));
-		if(defender.takeDamage(attack, this)) {
-			res[0] = attack;
-		}else{
-			res[0] = -1;
-		}
-		return res;
+		return defender.takeDamage(attack, this);
+
 	}
 	
 	@Override

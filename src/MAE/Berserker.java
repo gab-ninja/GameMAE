@@ -7,10 +7,13 @@ public class Berserker extends Hero {
 	}
 
 	@Override
-	public int[] attack(Character defender) {
-		int[] attack = super.attack(defender);
+	public String attack(Character defender) {
+		String attack = super.attack(defender);
 		if (!defender.isAlive()) {
-			this.takeDamage(-40, this);
+			int initialHealth =  this.health;
+			this.heal(40);
+			attack += ", since " + this.name + " finished the monster, it recovered " + 
+					  (this.health - initialHealth) + "HP's";
 		}
 		return attack;
 	}

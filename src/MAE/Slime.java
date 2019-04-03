@@ -8,9 +8,9 @@ public class Slime extends Monster {
 	}
 
 	@Override
-	public int[] attack(Character defender) {
+	public String attack(Character defender) {
 		defender.block();
-		return super.attack(defender);
+		return (super.attack(defender) + " and also blocked " + defender.name + " from playing on his next round");
 	}
 	
 	

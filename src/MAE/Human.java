@@ -19,6 +19,10 @@ public class Human extends Player {
 		this.playerInterface.setHuman(this);
 		this.playerInterface.loadHeroes(this.team);
 	}
+	
+	public void updateHeroes() {
+		this.playerInterface.loadHeroes(this.team);
+	}
 
 	public String getName() {
 		return name;

@@ -1,11 +1,7 @@
 package MAE;
-import java.awt.EventQueue;
-import java.lang.reflect.InvocationTargetException;
+
 import java.util.*;
 import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
-
-import javax.swing.SwingUtilities;
 
 public class Game {
 	
@@ -14,20 +10,18 @@ public class Game {
 	private final int NUMBER_OF_LEVELS = 5;
 	
 	private ArrayList <Character> order = new ArrayList <Character>();
-	private int level;
 	
 	private Computer cpu;
 	private Human human;
 	private String playerName;
 	
-	private PlayerInterface gameInterface;
+	//private PlayerInterface gameInterface;
 	private GI_Battle playerInterface;
 	
 	private boolean hasReceivedCharacters;
 	
 	
 	public Game() {
-		this.level = 0;
 		this.playerName = "";
 		this.hasReceivedCharacters = false;
 	}
@@ -68,6 +62,8 @@ public class Game {
         	}
         	this.human.healTeam();
         	this.cpu.healTeam();
+        	this.playerInterface.setCPUstatus("");
+        	this.playerInterface.setHumanStatus("All heroes were revived");
         }
         System.out.println("Game finished...");
         
@@ -87,10 +83,11 @@ public class Game {
 		order.clear();
 		order.addAll(this.human.getTeam());
 		order.addAll(this.cpu.generateTeam(level));
+		this.human.updateHeroes();
 		
 		while(true) {
 			Collections.shuffle(this.order);	
-			System.out.println(order);
+			System.out.println("ORDER: " + order);
 			for (Character character : order) {
 				this.playerInterface.updateStats();
 				if (!human.hasCharactersAlive()) {

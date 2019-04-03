@@ -40,15 +40,4 @@ public class Computer extends Player {
 	public void play(int level) {
 		System.out.println(level);
 	}
-	
-	/*
-	 * public void computerAttack(Character character) {
-		ArrayList <Character> toAttack = new ArrayList <Character>();
-		toAttack.addAll(this.human.getCharactersToAttack());
-		Collections.shuffle(toAttack);
-		int[] damage = character.attack(toAttack.get(0));
-		
-        gameInterface.showAttack(damage, character, toAttack.get(0));
-	}
-	 */
 };

@@ -11,7 +11,9 @@ public class Duelist extends Hero {
 	public void play(GI_Battle playerInterface) {
 		super.play(playerInterface);
 		playerInterface.updateStats();
-		super.play(playerInterface);
+		if (playerInterface.getCPU().hasCharactersAlive()) {			
+			super.play(playerInterface);
+		}
 	}
 
 	

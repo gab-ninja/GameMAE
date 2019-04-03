@@ -23,9 +23,11 @@ public class Hero extends Character {
 				}
 			}
 			System.out.println("monster to attack " + this.monsterToAttack);
-			this.attack(this.monsterToAttack);
+			String result = this.attack(this.monsterToAttack);
+			playerInterface.setHumanStatus(result);
 		} else if (!this.canPlay && this.isAlive()) {
 			this.unBlock();
+			playerInterface.setHumanStatus(this.name + " is now unblocked and free to play");
 		}
 	}
 	
@@ -33,17 +35,3 @@ public class Hero extends Character {
 		this.monsterToAttack = monsterToAttack;
 	}
 }
-
-/*
-public void playerAttack(Character character) {
-	Character toAttack;
-   if (character.isCleric()) {
-   	toAttack = this.gameInterface.selectToAttack(character, this.human.getCharactersAlive());        	
-   } else {
-   	toAttack = this.gameInterface.selectToAttack(character, this.cpu.getCharactersAlive());
-   }
-   int damage[] = character.attack(toAttack);
-   gameInterface.showAttack(damage, character, toAttack);
-   
-}
-*/

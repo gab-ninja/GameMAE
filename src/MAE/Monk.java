@@ -7,11 +7,11 @@ public class Monk extends Hero {
 	}
 
 	@Override
-	public boolean takeDamage(int damage, Character attacker) {
+	public String takeDamage(int damage, Character attacker) {
 		if (Math.random() > 0.33) {
 			return super.takeDamage(damage, attacker);
 		}
-		return false;
+		return "On an amazing move, " + this.name + " doged the attack from " + attacker.name + " completely";
 	}
 
 	

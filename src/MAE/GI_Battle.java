@@ -21,8 +21,8 @@ public class GI_Battle implements Runnable {
 	private ArrayList <Character> heroes;
 	private Image[] heroImages = new Image[4];
 	private JLabel[] labelHeroes = new JLabel[4];
-	private boolean[] handleHeroes = {false, false, false, false};
-	
+	private boolean[] isActiveBtnHeroes = {false, false, false, false};
+
 	private ArrayList <Character> monsters;
 	private Image[] monsterImages = new Image[4];
 	private JLabel[] labelMonsters = new JLabel[4];
@@ -32,6 +32,10 @@ public class GI_Battle implements Runnable {
 	private JLabel lblHstats;
 	private JLabel lblPlayingCPU;
 	private JLabel lblPlayingHuman;
+	private JLabel statusCPU;
+	private JLabel statusHuman;
+	
+	private Image fainted = new ImageIcon(this.getClass().getResource("/fainted.png")).getImage();
 	
 	private Hero hero;
 	private int numberOfMonsters;
@@ -72,6 +76,14 @@ public class GI_Battle implements Runnable {
 	    labelHeroes[heroes.indexOf(heroPlaying)].setBorder(border);
 	}
 	
+	public void setCPUstatus(String status) {
+		this.statusCPU.setText("<html><p>" + status + "</p></html>");
+	}
+	
+	public void setHumanStatus(String status) {
+		this.statusHuman.setText("<html><p>" + status + "</p></html>");
+	}
+	
 	public void loadHeroes(ArrayList<Character> characters) {
 		System.out.println("LOAD HEROES: " + characters);
 		this.heroes = characters;
@@ -90,6 +102,14 @@ public class GI_Battle implements Runnable {
 		}
 	}
 	
+	public Human getHuman() {
+		return this.human;
+	}
+	
+	public Computer getCPU() {
+		return this.cpu;
+	}
+	
 	public void getMonsterToAttack(Hero ch) {
 		this.hero = ch;
 		System.out.println("GET MONSTERS TO ATTACK: " + this.monsters);
@@ -99,6 +119,22 @@ public class GI_Battle implements Runnable {
 				this.isActiveBtnMonsters[i] = true;
 			}
 		}
+	}
+	
+	public void getHeroToHeal(Hero ch) {
+		this.hero = ch;
+		System.out.println("GET HEROES TO HEAL: " + this.heroes + " ");
+		ArrayList<Character> heroesToHeal = this.human.getCharactersAlive();
+		heroesToHeal.remove(ch);
+		for (int i=0; i<this.heroes.size(); i++) {
+			if (heroesToHeal.contains(this.heroes.get(i))) {
+				this.isActiveBtnHeroes[i] = true;
+				System.out.print("true ");
+			} else {
+				System.out.print("false ");
+			}
+		}
+		System.out.println(" ");
 	}
 	
 	public void updateStats() {
@@ -119,6 +155,8 @@ public class GI_Battle implements Runnable {
 		}
 		toShow += "</body></html>";
 		lblHstats.setText(toShow);
+		
+		this.checkDead();
 	}
 
 	private void initialize() {
@@ -136,18 +174,58 @@ public class GI_Battle implements Runnable {
 		
 		labelHeroes[0] = new JLabel("");
 		labelHeroes[0].setBounds(278, 387, 252, 353);
+		labelHeroes[0].setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		labelHeroes[0].addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (isActiveBtnHeroes[0]) {
+					resetHeroesBtn();
+					((Cleric) hero).setHeroToHeal((Hero) heroes.get(0));
+				}
+			}
+		});
 		frame.getContentPane().add(labelHeroes[0]);
 		
 		labelHeroes[1] = new JLabel("");
 		labelHeroes[1].setBounds(552, 387, 252, 353);
+		labelHeroes[1].setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		labelHeroes[1].addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (isActiveBtnHeroes[1]) {
+					resetHeroesBtn();
+					((Cleric) hero).setHeroToHeal((Hero) heroes.get(1));
+				}
+			}
+		});
 		frame.getContentPane().add(labelHeroes[1]);
 		
 		labelHeroes[2] = new JLabel("");
 		labelHeroes[2].setBounds(834, 387, 252, 353);
+		labelHeroes[2].setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		labelHeroes[2].addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (isActiveBtnHeroes[2]) {
+					resetHeroesBtn();
+					((Cleric) hero).setHeroToHeal((Hero) heroes.get(2));
+				}
+			}
+		});
 		frame.getContentPane().add(labelHeroes[2]);
 		
 		labelHeroes[3] = new JLabel("");
 		labelHeroes[3].setBounds(1122, 387, 252, 353);
+		labelHeroes[3].setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		labelHeroes[3].addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (isActiveBtnHeroes[3]) {
+					resetHeroesBtn();
+					((Cleric) hero).setHeroToHeal((Hero) heroes.get(3));
+				}
+			}
+		});
 		frame.getContentPane().add(labelHeroes[3]);
 		
 		
@@ -235,9 +313,23 @@ public class GI_Battle implements Runnable {
 		lblHstats.setBounds(27, 470, 183, 131);
 		frame.getContentPane().add(lblHstats);
 		
+		statusCPU = new JLabel("");
+		statusCPU.setVerticalAlignment(SwingConstants.TOP);
+		statusCPU.setForeground(Color.WHITE);
+		statusCPU.setFont(new Font("Arial", Font.BOLD, 15));
+		statusCPU.setBounds(27, 204, 183, 131);
+		frame.getContentPane().add(statusCPU);
+		
+		statusHuman = new JLabel("");
+		statusHuman.setVerticalAlignment(SwingConstants.TOP);
+		statusHuman.setForeground(Color.WHITE);
+		statusHuman.setFont(new Font("Arial", Font.BOLD, 15));
+		statusHuman.setBounds(27, 609, 183, 131);
+		frame.getContentPane().add(statusHuman);
+		
 		
 		JLabel label_bk = new JLabel("");
-		label_bk.setForeground(Color.RED);
+		label_bk.setForeground(Color.BLACK);
 		label_bk.setFont(new Font("Arial", Font.BOLD, 15));
 		label_bk.setBounds(0, 0, 1422, 753);
 		label_bk.setIcon(new ImageIcon( bk));
@@ -250,11 +342,34 @@ public class GI_Battle implements Runnable {
 		}
 	}
 	
+	private void resetHeroesBtn() {
+		for (int i=0; i<4; i++) {
+			this.isActiveBtnHeroes[i] = false;
+		}
+	}
+	
 	private void deleteBorders() {
 		Border emptyBorder = BorderFactory.createLineBorder(Color.YELLOW, 0);
 		for(int i=0; i<4; i++) {
 			labelMonsters[i].setBorder(emptyBorder);
 			labelHeroes[i].setBorder(emptyBorder);
+		}
+	}
+	
+	public void checkDead() {
+		for(Character monster : this.monsters) {
+			if (!monster.isAlive() && this.monsterImages[monsters.indexOf(monster)] != this.fainted) {
+				this.monsterImages[monsters.indexOf(monster)] = this.fainted;
+				this.labelMonsters[monsters.indexOf(monster)].setIcon(new ImageIcon(this.fainted));
+				
+			}
+		}
+		for(Character hero : this.heroes) {
+			if (!hero.isAlive() && this.heroImages[heroes.indexOf(hero)] != this.fainted) {
+				this.heroImages[heroes.indexOf(hero)] = this.fainted;
+				this.labelHeroes[heroes.indexOf(hero)].setIcon(new ImageIcon(this.fainted));
+				
+			}
 		}
 	}
 

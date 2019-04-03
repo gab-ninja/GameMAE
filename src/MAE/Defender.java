@@ -12,11 +12,14 @@ public class Defender extends Hero {
 	}
 	
 	@Override
-	public boolean takeDamage(int damage, Character attacker) {
-		super.takeDamage(damage, attacker);
+	public String takeDamage(int damage, Character attacker) {
+		String res = super.takeDamage(damage, attacker);
 		if(this.isAlive()) {
-			this.attack(attacker);
+			int attack = this.attackMin + (int)(Math.random() * ((this.attackMax - this.attackMin) + 1));
+			res += ", and a hit back occured and " + attacker.takeDamage(attack, this);
+			
+			//TODO: Update the GUI
 		}
-		return true;
+		return res;
 	}
 }
