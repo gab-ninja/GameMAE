@@ -9,10 +9,16 @@ public class Duelist extends Hero {
 
 	@Override
 	public void play(GI_Battle playerInterface) {
-		super.play(playerInterface);
-		playerInterface.updateStats();
-		if (playerInterface.getCPU().hasCharactersAlive()) {			
+		playerInterface.setHumanPlaying(this);
+		if (this.canPlay && this.isAlive()) {
 			super.play(playerInterface);
+			playerInterface.updateStats();
+			if (playerInterface.getCPU().hasCharactersAlive()) {			
+				super.play(playerInterface);
+			}
+		} else if (!this.canPlay && this.isAlive()) {
+			this.unBlock();
+			playerInterface.setHumanStatus(this.name + " is now unblocked and free to play");
 		}
 	}
 

@@ -131,7 +131,7 @@ abstract class Character {
 	
 	@Override
 	public String toString() {
-		return (this.isPoisoned() ? "(P) " : " ")  + this.name + " - " + this.health + "/" + this.healthMax + " HP";
+		return (this.isPoisoned() ? "(P) " : " ")  + this.name + " - " + (this.isAlive() ? this.health + "/" + this.healthMax + " HP" : "FAINTED");
 	}
 	
 

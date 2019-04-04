@@ -74,7 +74,7 @@ public class GI_Battle implements Runnable {
 	}
 	
 	public void setHeroAttacked(Character heroAttacked) {
-		Border border = BorderFactory.createLineBorder(Color.RED, 2);
+		Border border = BorderFactory.createLineBorder(Color.RED, 5);
 		labelHeroes[heroes.indexOf(heroAttacked)].setBorder(border);
 	}
 	
@@ -129,7 +129,7 @@ public class GI_Battle implements Runnable {
 		this.hero = ch;
 		// System.out.println("GET HEROES TO HEAL: " + this.heroes + " ");
 		ArrayList<Character> heroesToHeal = this.human.getCharactersAlive();
-		heroesToHeal.remove(ch);
+		// heroesToHeal.remove(ch);
 		for (int i=0; i<this.heroes.size(); i++) {
 			if (heroesToHeal.contains(this.heroes.get(i))) {
 				this.isActiveBtnHeroes[i] = true;
