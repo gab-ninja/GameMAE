@@ -73,6 +73,11 @@ public class GI_Battle implements Runnable {
 	    labelHeroes[heroes.indexOf(heroPlaying)].setBorder(border);
 	}
 	
+	public void setHeroAttacked(Character heroAttacked) {
+		Border border = BorderFactory.createLineBorder(Color.RED, 2);
+		labelHeroes[heroes.indexOf(heroAttacked)].setBorder(border);
+	}
+	
 	public void setCPUstatus(String status) {
 		this.statusCPU.setText("<html><p>" + status + "</p></html>");
 	}

@@ -5,7 +5,8 @@ import java.util.Collections;
 
 public class Monster extends Character {
 	
-	private static final int ATTACK_TIME = 2700;
+	private static final int TIME_BEFORE_ATTACK = 1000;
+	private static final int TIME_AFTER_ATTACK = 2000;
 
 	public Monster(String name, Categories category, int healthMax, int attackMin, int attackMax, String imgName) {
 		super(name, category, healthMax, attackMin, attackMax, imgName, true);
@@ -16,7 +17,7 @@ public class Monster extends Character {
 		playerInterface.setComputerPlaying(this);
 		if (this.canPlay && this.isAlive()) {
 			try {
-				Thread.sleep(ATTACK_TIME/2);
+				Thread.sleep(TIME_BEFORE_ATTACK);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -25,8 +26,9 @@ public class Monster extends Character {
 			Collections.shuffle(toAttack);
 			String res = this.attack(toAttack.get(0));
 			playerInterface.setCPUstatus(res);
+			playerInterface.setHeroAttacked(toAttack.get(0));
 			try {
-				Thread.sleep(ATTACK_TIME/2);
+				Thread.sleep(TIME_AFTER_ATTACK);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
