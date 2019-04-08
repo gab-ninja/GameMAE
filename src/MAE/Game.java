@@ -5,6 +5,12 @@ import java.util.concurrent.CountDownLatch;
 
 public class Game {
 	
+	//TODO: 
+	// - escolha ponderada de monstros por nivel
+	// - items
+	// - melhorar interface de ganhar/perder e talvez passar de nivel
+	// - escolher herois aleatoriamente
+	
 	public final CountDownLatch latch = new CountDownLatch(1);
 	
 	private final int NUMBER_OF_LEVELS = 5;

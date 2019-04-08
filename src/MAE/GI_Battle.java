@@ -19,6 +19,7 @@ public class GI_Battle implements Runnable {
 	private ArrayList <Character> heroes;
 	private Image[] heroImages = new Image[4];
 	private JLabel[] labelHeroes = new JLabel[4];
+	private JLabel[] labelInfoHeroes = new JLabel[4];
 	private boolean[] isActiveBtnHeroes = {false, false, false, false};
 	private JProgressBar[] monstersLive = new JProgressBar[4];
 
@@ -56,7 +57,6 @@ public class GI_Battle implements Runnable {
 	}
 	
 	public void setComputerPlaying(Character monsterPlaying) {
-		// System.out.println("SET CPU PLAYING: " + monsterPlaying + this.monsters);
 		lblPlayingHuman.setVisible(false);
 		lblPlayingCPU.setVisible(true);
 		this.deleteBorders();
@@ -65,7 +65,6 @@ public class GI_Battle implements Runnable {
 	}
 	
 	public void setHumanPlaying(Character heroPlaying) {
-		// System.out.println("SET HUMAN PLAYING: " + heroPlaying + this.heroes);
 		lblPlayingHuman.setVisible(true);
 		lblPlayingCPU.setVisible(false);
 		this.deleteBorders();
@@ -86,8 +85,11 @@ public class GI_Battle implements Runnable {
 		this.statusHuman.setText("<html><p>" + status + "</p></html>");
 	}
 	
+	public void setHeroAttack(String attack, Character hero) {
+		this.labelInfoHeroes[this.heroes.indexOf(hero)].setText(attack);
+	}
+	
 	public void loadHeroes(ArrayList<Character> characters) {
-		// System.out.println("LOAD HEROES: " + characters);
 		this.heroes = characters;
 		for (int i=0; i<4; i++) {
 			heroesLive[i].setMaximum(characters.get(i).getMaxHealth());
@@ -97,12 +99,18 @@ public class GI_Battle implements Runnable {
 	}
 	
 	public void loadMonsters(ArrayList<Character> characters) {
-		// System.out.println("LOAD MONSTERS: " + characters);
 		this.monsters = characters;
 		for (int i=0; i<characters.size(); i++) {
 			monstersLive[i].setMaximum(characters.get(i).getMaxHealth());
 			monsterImages[i] = new ImageIcon(this.getClass().getResource(characters.get(i).getImgName())).getImage();	
 			labelMonsters[i].setIcon(new ImageIcon(monsterImages[i]));
+		}
+		this.cleanLabels();
+	}
+	
+	public void cleanLabels() {
+		for (int i=0; i<4; i++) {
+			this.labelInfoHeroes[i].setText("");
 		}
 	}
 	
@@ -116,7 +124,6 @@ public class GI_Battle implements Runnable {
 	
 	public void getMonsterToAttack(Hero ch) {
 		this.hero = ch;
-		// System.out.println("GET MONSTERS TO ATTACK: " + this.monsters);
 		ArrayList<Character> monstersToAttack = this.cpu.getCharactersToAttack();
 		for (int i=0; i<this.monsters.size(); i++) {
 			if (monstersToAttack.contains(this.monsters.get(i))) {				
@@ -127,18 +134,12 @@ public class GI_Battle implements Runnable {
 	
 	public void getHeroToHeal(Hero ch) {
 		this.hero = ch;
-		// System.out.println("GET HEROES TO HEAL: " + this.heroes + " ");
 		ArrayList<Character> heroesToHeal = this.human.getCharactersAlive();
-		// heroesToHeal.remove(ch);
 		for (int i=0; i<this.heroes.size(); i++) {
 			if (heroesToHeal.contains(this.heroes.get(i))) {
 				this.isActiveBtnHeroes[i] = true;
-				// System.out.print("true ");
-			} else {
-				// System.out.print("false ");
 			}
 		}
-		// System.out.println(" ");
 	}
 	
 	public void updateStats() {
@@ -185,6 +186,16 @@ public class GI_Battle implements Runnable {
 		Image bk = new ImageIcon(this.getClass().getResource("/BattleGround.png")).getImage();
 		
 		
+		labelInfoHeroes[0] = new JLabel("");
+		labelInfoHeroes[0].setVerticalAlignment(SwingConstants.BOTTOM);
+		labelInfoHeroes[0].setHorizontalAlignment(SwingConstants.CENTER);
+		labelInfoHeroes[0].setFont(new Font("Arial", Font.BOLD, 14));
+		labelInfoHeroes[0].setBackground(Color.BLACK);
+		labelInfoHeroes[0].setForeground(Color.WHITE);
+		labelInfoHeroes[0].setBounds(278, 387, 252, 350);
+		frame.getContentPane().add(labelInfoHeroes[0]);
+		
+		
 		labelHeroes[0] = new JLabel("");
 		labelHeroes[0].setBounds(278, 387, 252, 353);
 		labelHeroes[0].setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -198,6 +209,15 @@ public class GI_Battle implements Runnable {
 			}
 		});
 		frame.getContentPane().add(labelHeroes[0]);
+		
+		labelInfoHeroes[1] = new JLabel("");
+		labelInfoHeroes[1].setVerticalAlignment(SwingConstants.BOTTOM);
+		labelInfoHeroes[1].setHorizontalAlignment(SwingConstants.CENTER);
+		labelInfoHeroes[1].setFont(new Font("Arial", Font.BOLD, 14));
+		labelInfoHeroes[1].setBackground(Color.BLACK);
+		labelInfoHeroes[1].setForeground(Color.WHITE);
+		labelInfoHeroes[1].setBounds(552, 387, 252, 350);
+		frame.getContentPane().add(labelInfoHeroes[1]);
 		
 		labelHeroes[1] = new JLabel("");
 		labelHeroes[1].setBounds(552, 387, 252, 353);
@@ -213,6 +233,15 @@ public class GI_Battle implements Runnable {
 		});
 		frame.getContentPane().add(labelHeroes[1]);
 		
+		labelInfoHeroes[2] = new JLabel("");
+		labelInfoHeroes[2].setVerticalAlignment(SwingConstants.BOTTOM);
+		labelInfoHeroes[2].setHorizontalAlignment(SwingConstants.CENTER);
+		labelInfoHeroes[2].setFont(new Font("Arial", Font.BOLD, 14));
+		labelInfoHeroes[2].setBackground(Color.BLACK);
+		labelInfoHeroes[2].setForeground(Color.WHITE);
+		labelInfoHeroes[2].setBounds(834, 387, 252, 350);
+		frame.getContentPane().add(labelInfoHeroes[2]);
+		
 		labelHeroes[2] = new JLabel("");
 		labelHeroes[2].setBounds(834, 387, 252, 353);
 		labelHeroes[2].setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -226,6 +255,15 @@ public class GI_Battle implements Runnable {
 			}
 		});
 		frame.getContentPane().add(labelHeroes[2]);
+		
+		labelInfoHeroes[3] = new JLabel("");
+		labelInfoHeroes[3].setVerticalAlignment(SwingConstants.BOTTOM);
+		labelInfoHeroes[3].setHorizontalAlignment(SwingConstants.CENTER);
+		labelInfoHeroes[3].setFont(new Font("Arial", Font.BOLD, 14));
+		labelInfoHeroes[3].setBackground(Color.BLACK);
+		labelInfoHeroes[3].setForeground(Color.WHITE);
+		labelInfoHeroes[3].setBounds(1122, 387, 252, 350);
+		frame.getContentPane().add(labelInfoHeroes[3]);
 		
 		labelHeroes[3] = new JLabel("");
 		labelHeroes[3].setBounds(1122, 387, 252, 353);

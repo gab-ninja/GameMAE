@@ -29,6 +29,14 @@ public enum Heroes {
 		this.imgName = imgName;
 	}
 	
+	public int getMaxAttack() {
+		return this.attackMax;
+	}
+	
+	public int getMinAttack() {
+		return this.attackMin;
+	}
+	
 	public Character generateCharacterObject() {
 		switch (this.category) {
 		case Warrior:

@@ -46,6 +46,10 @@ abstract class Character {
 		return this.attackMin;
 	}
 	
+	public int getAttackMax() {
+		return this.attackMax;
+	}
+	
 	public String getImgName() {
 		return this.imgName;
 	}
@@ -114,8 +118,7 @@ abstract class Character {
 		this.poison = this.poison + turns >= 3 ? 3 : this.poison + turns;
 	}
 
-	public String attack(Character defender) {
-		// System.out.println("ATTACK " + this + defender);
+	public String attack(Character defender, GI_Battle playerInterface) {
 		if (this.isPoisoned()) {
 			this.takeDamage(POISON_DAMAGE, this);
 			this.poison --;
@@ -127,6 +130,11 @@ abstract class Character {
 		int attack = this.attackMin + (int)(Math.random() * ((this.attackMax - this.attackMin) + 1));
 		return defender.takeDamage(attack, this);
 
+	}
+	
+	public void lowerAttack(double lower) {
+		this.attackMax *= (1 - lower);
+		this.attackMin *= (1 - lower);
 	}
 	
 	@Override

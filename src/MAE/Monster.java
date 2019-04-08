@@ -24,7 +24,7 @@ public class Monster extends Character {
 			ArrayList <Character> toAttack = new ArrayList <Character>();
 			toAttack.addAll(playerInterface.getHuman().getCharactersToAttack());
 			Collections.shuffle(toAttack);
-			String res = this.attack(toAttack.get(0));
+			String res = this.attack(toAttack.get(0), playerInterface);
 			playerInterface.setCPUstatus(res);
 			playerInterface.setHeroAttacked(toAttack.get(0));
 			try {

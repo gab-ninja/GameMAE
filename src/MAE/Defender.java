@@ -17,8 +17,6 @@ public class Defender extends Hero {
 		if(this.isAlive()) {
 			int attack = this.attackMin + (int)(Math.random() * ((this.attackMax - this.attackMin) + 1));
 			res += ", and a hit back occured and " + attacker.takeDamage(attack, this);
-			
-			//TODO: Update the GUI
 		}
 		return res;
 	}

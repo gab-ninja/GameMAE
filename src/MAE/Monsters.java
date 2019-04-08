@@ -11,8 +11,8 @@ public enum Monsters {
 	Bith (Categories.Avenger, 550, 160, 180, "/21.png"),
 	Rodian (Categories.Slayer, 750, 200, 210, "/22.png"),
 	Talz (Categories.Slayer, 700, 215, 225, "/23.png"),
-	Yarkora (Categories.Karim, 800, 30, 50, "/24.png"),
-	Cerean (Categories.Karim, 770, 40, 70, "/25.png");
+	Yarkora (Categories.Karim, 800, 80, 90, "/24.png"),
+	Cerean (Categories.Karim, 770, 90, 100, "/25.png");
 	
 	private final Categories category;
 	private final int hpMax;
