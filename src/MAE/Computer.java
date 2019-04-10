@@ -21,13 +21,38 @@ public class Computer extends Player {
 	}
 
 	public ArrayList<Character> generateTeam(int level) {
-		int numOfMonsters = level>2 ? 4 : 3;
 		ArrayList <Character> characters = new ArrayList<Character>();
-		int[] cpuTeam = au.randomNonRepetitive(numOfMonsters, this.monsters.size());
-		for (int i=0; i<cpuTeam.length; i++) {
-			characters.add(monsters.get(cpuTeam[i]));
+		ArrayList <Character> team= new ArrayList<Character>();
+	
+		for (Character monster: this.monsters) { 
+			Categories cat = monster.getCategory();
+			if (level == 1 && (cat == Categories.Spider || cat == Categories.Mummy || cat == Categories.Slime)) {
+				characters.add(monster);
+			}
+			else if (level == 2 && (cat == Categories.Spider || cat == Categories.Mummy || cat == Categories.Slime || cat == Categories.Karim)) {
+				characters.add(monster);
+			}
+			else if (level == 3 && (cat == Categories.Karim || cat == Categories.Mummy || cat == Categories.Slime)) {
+				characters.add(monster);
+			}
+			else if (level == 4 && (cat == Categories.Karim || cat == Categories.Mummy || cat == Categories.Slime || cat == Categories.Avenger)) {
+				characters.add(monster);
+			}
+			else if (level == 5 && (cat == Categories.Avenger || cat == Categories.Slayer || cat == Categories.Karim)) {
+				characters.add(monster);
+			}
+			else if (level > 5) {
+				characters.add(monster);
+			}
 		}
-		this.setTeam(characters);
+						
+		int numOfMonsters = level>2 ? 4 : 3;
+		int[] cpuTeam = au.randomNonRepetitive(numOfMonsters, characters.size());
+		
+		for (int i=0; i<cpuTeam.length; i++) {
+			team.add(characters.get(cpuTeam[i]));
+		}
+		this.setTeam(team);
 		this.playerInterface.loadMonsters(this.team);
 		return this.team;
 		

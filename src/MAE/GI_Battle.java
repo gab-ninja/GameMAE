@@ -175,8 +175,9 @@ public class GI_Battle implements Runnable {
 	
 	private void initialize() {
 		frame = new JFrame();
+		frame.setResizable(false);
 		frame.setBackground(Color.BLACK);
-		frame.setSize(1440, 800);
+		frame.setSize(1426, 785);
 		frame.setLocationRelativeTo(null);
 		Image icon = new ImageIcon(this.getClass().getResource("/iconWhite.png")).getImage();
 		frame.setIconImage(icon);

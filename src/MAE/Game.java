@@ -6,10 +6,10 @@ import java.util.concurrent.CountDownLatch;
 public class Game {
 	
 	//TODO: 
-	// - escolha ponderada de monstros por nivel
-	// - items
-	// - melhorar interface de ganhar/perder e talvez passar de nivel
-	// - escolher herois aleatoriamente
+	// Items 
+	// - pocao para aumentar vida 
+	// - pocao aumentar attaque 
+	// - revive a 100%
 	
 	public final CountDownLatch latch = new CountDownLatch(1);
 	
@@ -97,12 +97,14 @@ public class Game {
 			for (Character character : order) {
 				this.playerInterface.updateStats();
 				if (!human.hasCharactersAlive()) {
-					this.playerInterface.msgbox(":( The CPU won. A great player is the one that never gives up!");
+					Thread t2 = new Thread(new GI_Lose());
+			        t2.start();
 					return true;
 				}
 				if (!cpu.hasCharactersAlive()) {
 					if (level == NUMBER_OF_LEVELS) {
-						this.playerInterface.msgbox("Congratulations, " + this.human.getName() +" you won the game!");
+						Thread t2 = new Thread(new GI_Win());
+				        t2.start();
 					} else {
 						this.playerInterface.msgbox("The heroes defeated the monsters on this level and are now resting for the next one");
 					}

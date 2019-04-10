@@ -2,6 +2,9 @@ package MAE;
 
 import java.awt.*;
 import javax.swing.*;
+
+import MAE.Character;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.*;
@@ -35,7 +38,8 @@ public class GI_PickHeroes implements Runnable {
 
 	private void initialize() {
 		frame = new JFrame();
-		frame.setSize(1440, 800);
+		frame.setResizable(false);
+		frame.setSize(1426, 785);
 		frame.setLocationRelativeTo(null);
 		Image icon = new ImageIcon(this.getClass().getResource("/iconWhite.png")).getImage();
 		frame.setIconImage(icon);
@@ -70,6 +74,21 @@ public class GI_PickHeroes implements Runnable {
 				lblNewLabel.repaint();
 			}
 		});
+		
+		JButton btnRandomTeam = new JButton("Random Team");
+		btnRandomTeam.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				int[] team = au.randomNonRepetitive(4, heroes.size());
+				game.receivePlayerCharacters(convertInt2Heroes(team));
+				frame.setVisible(false);
+				return;
+			}
+		});
+		btnRandomTeam.setFont(new Font("Arial", Font.PLAIN, 18));
+		btnRandomTeam.setBackground(Color.WHITE);
+		btnRandomTeam.setBounds(117, 676, 171, 40);
+		frame.getContentPane().add(btnRandomTeam);
 		lblNewLabel.setBackground(Color.BLACK);
 		lblNewLabel.setBounds(12, 124, 178, 247);
 		lblNewLabel.setOpaque(cardStates[0]);

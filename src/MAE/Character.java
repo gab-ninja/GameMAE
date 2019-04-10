@@ -30,6 +30,10 @@ abstract class Character {
 	}
 	
 	
+	public Categories getCategory() {
+		return this.category;
+	}
+	
 	public String getName() {
 		return name;
 	}
