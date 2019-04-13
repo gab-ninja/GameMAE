@@ -1,5 +1,7 @@
 package MAE;
 
+import java.awt.Image;
+
 abstract class Character {
 	protected String name;
 	protected int attackMin;

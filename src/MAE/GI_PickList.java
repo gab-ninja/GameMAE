@@ -23,8 +23,8 @@ public class GI_PickList implements Runnable {
 	private Game game;
 	private Item item;
 	
-	public GI_PickList(ArrayList<Item> arr, Game game) {
-		this.potions = arr;	
+	public GI_PickList(Game game) {
+		this.potions =game.getHuman().getItems();
 		this.game = game;
 		this.pickHeroes = false;
 		initialize();
@@ -41,7 +41,7 @@ public class GI_PickList implements Runnable {
 		frame = new JFrame();
 		frame.setResizable(false);
 		frame.setBounds(100, 100, 368, 353);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frame.setLocationRelativeTo(null);
 		frame.getContentPane().setLayout(null);
 		
@@ -63,16 +63,18 @@ public class GI_PickList implements Runnable {
 		lblSelectTheItem.setBounds(56, 46, 257, 53);
 		frame.getContentPane().add(lblSelectTheItem);
 		
-		JButton btnNewButton = new JButton("Back");
-		btnNewButton.setBackground(Color.WHITE);
-		btnNewButton.setForeground(Color.BLACK);
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				 frame.dispose();
-			}
-		});
-		btnNewButton.setBounds(56, 253, 119, 25);
-		frame.getContentPane().add(btnNewButton);
+		if (!pickHeroes) {
+			JButton btnNewButton = new JButton("Back");
+			btnNewButton.setBackground(Color.WHITE);
+			btnNewButton.setForeground(Color.BLACK);
+			btnNewButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					 frame.dispose();
+				}
+			});
+			btnNewButton.setBounds(56, 253, 119, 25);
+			frame.getContentPane().add(btnNewButton);
+		}
 		
 		JButton btnUse = new JButton("Use");
 		btnUse.addActionListener(new ActionListener() {
@@ -85,7 +87,6 @@ public class GI_PickList implements Runnable {
 				} else {
 					new Thread(() -> {
 						potions.get(list.getSelectedIndex()).execute(game);
-						game.getHuman().removeItem(potions.get(list.getSelectedIndex()));
 					}).start();
 				}
 			}

@@ -8,6 +8,8 @@ import MAE.Character;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.*;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class GI_PickHeroes implements Runnable {
 
@@ -85,9 +87,21 @@ public class GI_PickHeroes implements Runnable {
 				return;
 			}
 		});
+		
+		JButton btnInstructions = new JButton("Instructions");
+		btnInstructions.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Thread t1 = new Thread(new GI_Instructions());
+		        t1.start();
+			}
+		});
+		btnInstructions.setFont(new Font("Arial", Font.PLAIN, 18));
+		btnInstructions.setBackground(Color.WHITE);
+		btnInstructions.setBounds(12, 687, 178, 31);
+		frame.getContentPane().add(btnInstructions);
 		btnRandomTeam.setFont(new Font("Arial", Font.PLAIN, 18));
 		btnRandomTeam.setBackground(Color.WHITE);
-		btnRandomTeam.setBounds(117, 676, 171, 40);
+		btnRandomTeam.setBounds(213, 687, 178, 31);
 		frame.getContentPane().add(btnRandomTeam);
 		lblNewLabel.setBackground(Color.BLACK);
 		lblNewLabel.setBounds(12, 124, 178, 247);

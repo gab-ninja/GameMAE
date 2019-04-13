@@ -359,7 +359,7 @@ public class GI_Battle implements Runnable {
 					msgbox("You don't have any item");
 					return;
 				}
-				Thread t1 = new Thread(new GI_PickList(human.getItems(), game));
+				Thread t1 = new Thread(new GI_PickList(game));
 		        t1.start();
 			}
 		});
@@ -495,6 +495,10 @@ public class GI_Battle implements Runnable {
 			if (!hero.isAlive() && this.heroImages[heroes.indexOf(hero)] != this.fainted) {
 				this.heroImages[heroes.indexOf(hero)] = this.fainted;
 				this.labelHeroes[heroes.indexOf(hero)].setIcon(new ImageIcon(this.fainted));
+				
+			} else if (hero.isAlive() && this.heroImages[heroes.indexOf(hero)] == this.fainted) {
+				this.heroImages[heroes.indexOf(hero)] = new ImageIcon(this.getClass().getResource(hero.getImgName())).getImage();
+				this.labelHeroes[heroes.indexOf(hero)].setIcon(new ImageIcon(this.heroImages[heroes.indexOf(hero)]));
 				
 			}
 		}

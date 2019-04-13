@@ -57,10 +57,7 @@ public class Human extends Player {
 	}
 	
 	public void removeItem(Item item) {
-		System.out.println("Removing items");
-		System.out.println(this.items);
 		this.items.remove(item);
-		System.out.println(this.items);
 	}
 
 	public void setName(String name) {

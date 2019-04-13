@@ -13,6 +13,7 @@ public class LifePotion extends Item{
 	}
 	
 	public void execute(Game game) {
+		game.getHuman().removeItem(this);
 		this.hasReceivedHero = false;
 		Thread t43 = new Thread(new GI_PickList(game.getHuman().getTeam(), this));
 		t43.start();
