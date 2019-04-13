@@ -31,12 +31,10 @@ public class GI_PickList implements Runnable {
 	}
 	
 	public GI_PickList(ArrayList<Character> arr, Item item) {
-		System.out.println("Opened new window");
 		this.heroes = arr;	
 		this.item = item;
 		this.pickHeroes = true;
 		initialize();
-		System.out.println("New window initialized");
 	}
 	
 	private void initialize() {		
@@ -80,7 +78,6 @@ public class GI_PickList implements Runnable {
 		btnUse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
-				System.out.println(list.getSelectedIndex());
 				if (pickHeroes) {
 					new Thread(() -> {
 						item.receiveHero((Hero) heroes.get(list.getSelectedIndex()));
@@ -88,7 +85,7 @@ public class GI_PickList implements Runnable {
 				} else {
 					new Thread(() -> {
 						potions.get(list.getSelectedIndex()).execute(game);
-						game.getHuman().removeItem(item);
+						game.getHuman().removeItem(potions.get(list.getSelectedIndex()));
 					}).start();
 				}
 			}
@@ -102,6 +99,5 @@ public class GI_PickList implements Runnable {
 	@Override
 	public void run() {
 		frame.setVisible(true);
-		System.out.println("New window runnign");
 	}
 }

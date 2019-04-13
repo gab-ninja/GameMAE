@@ -367,6 +367,7 @@ public class GI_Battle implements Runnable {
 		btnNewButton.setFont(new Font("Arial", Font.BOLD, 16));
 		btnNewButton.setBackground(new Color(222, 184, 135));
 		btnNewButton.setBounds(12, 354, 207, 45);
+		btnNewButton.setFocusPainted(false);
 		frame.getContentPane().add(btnNewButton);
 		frame.getContentPane().add(lblPlayingHuman);
 		

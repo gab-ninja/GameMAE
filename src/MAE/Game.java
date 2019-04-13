@@ -3,13 +3,7 @@ package MAE;
 import java.util.*;
 import java.util.concurrent.CountDownLatch;
 
-public class Game {
-	
-	//TODO: 
-	// rearranjar ordem de monstros
-	// retirar os items depois de usados
-	// mudar precos dos items
-	
+public class Game {	
 	public final CountDownLatch latch = new CountDownLatch(1);
 	
 	private final int NUMBER_OF_LEVELS = 5;
