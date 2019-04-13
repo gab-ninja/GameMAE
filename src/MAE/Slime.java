@@ -2,8 +2,8 @@ package MAE;
 
 public class Slime extends Monster {
 
-	public Slime(String name, Categories category, int healthMax, int attackMin, int attackMax, String imgName) {
-		super(name, category, healthMax, attackMin, attackMax, imgName);
+	public Slime(String name, Categories category, int healthMax, int attackMin, int attackMax, String imgName, int coins) {
+		super(name, category, healthMax, attackMin, attackMax, imgName, coins);
 	}
 
 	@Override

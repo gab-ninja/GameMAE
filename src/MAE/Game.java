@@ -6,17 +6,14 @@ import java.util.concurrent.CountDownLatch;
 public class Game {
 	
 	//TODO: 
-	// Items 
-	// - pocao para aumentar vida 
-	// - pocao aumentar ataque 
-	// - revive a 100%
-	// - congelar a janela enquanto se escolhe os items
+	// rearranjar ordem de monstros
 	
 	public final CountDownLatch latch = new CountDownLatch(1);
 	
 	private final int NUMBER_OF_LEVELS = 5;
 	
 	private ArrayList <Character> order = new ArrayList <Character>();
+	private ArrayList <Item> items = new ArrayList <Item>();
 	
 	private Computer cpu;
 	private Human human;
@@ -31,6 +28,9 @@ public class Game {
 	public Game() {
 		this.playerName = "";
 		this.hasReceivedCharacters = false;
+		for (Items item : Items.values()) {
+			this.items.add(item.generateItemObject());
+		}
 	}
 
 	public void startGame() {
@@ -106,9 +106,14 @@ public class Game {
 						Thread t2 = new Thread(new GI_Win());
 				        t2.start();
 					} else {
+						for (Character ch : order) {
+							if (ch.isMonster()) {
+								this.human.addCoins(((Monster) ch).getCoins());
+							}
+						}
 						this.playerInterface.msgbox("The heroes defeated the monsters on this level and are now resting for the next one");
 						this.playerInterface.setVisibility(false);
-						Thread tStore = new Thread(new GI_Store(this));
+						Thread tStore = new Thread(new GI_Store(this, this.items, this.human));
 						tStore.start();
 						this.hasFinishedShopping = false;
 						while (!this.hasFinishedShopping) {

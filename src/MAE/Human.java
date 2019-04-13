@@ -7,11 +7,13 @@ import MAE.Character;
 public class Human extends Player {
 	private String name;
 	private ArrayList<Item> items = new ArrayList<Item>();
+	private int budget;
 	
 	public Human(ArrayList<Character> characters, String name) {
 		super();
 		this.setTeam(characters);
 		this.name = name;
+		this.budget = 0;
 	}
 	
 	@Override
@@ -19,6 +21,18 @@ public class Human extends Player {
 		super.setInterface(playerInterface);
 		this.playerInterface.setHuman(this);
 		this.playerInterface.loadHeroes(this.team);
+	}
+	
+	public int getBudget() {
+		return this.budget;
+	}
+	
+	public void addCoins(int coins) {
+		this.budget+= coins;
+	}
+	
+	public void takeCoins(int coins) {
+		this.budget-= coins;
 	}
 	
 	public void updateHeroes() {
@@ -31,6 +45,11 @@ public class Human extends Player {
 	
 	public boolean hasItems() {
 		return !this.items.isEmpty();
+	}
+	
+	public ArrayList<Item> addItems(Item item) {
+		this.items.add(item);
+		return this.items;
 	}
 	
 	public ArrayList<Item> getItems() {
@@ -53,11 +72,5 @@ public class Human extends Player {
 			}
 		}
 		return charactersToAttack;
-	}
-
-	public void attack() {
-	}
-
-	public void selectHeroes() {
 	}
 };

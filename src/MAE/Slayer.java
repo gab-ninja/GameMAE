@@ -3,8 +3,8 @@ package MAE;
 public class Slayer extends Monster{
 	public static final double ATTACK_LOWER = 0.1;
 
-	public Slayer(String name, Categories category, int healthMax, int attackMin, int attackMax, String imgName) {
-		super(name, category, healthMax, attackMin, attackMax, imgName);
+	public Slayer(String name, Categories category, int healthMax, int attackMin, int attackMax, String imgName, int coins) {
+		super(name, category, healthMax, attackMin, attackMax, imgName, coins);
 	}
 
 	@Override

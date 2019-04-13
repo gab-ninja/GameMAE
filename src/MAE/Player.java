@@ -5,15 +5,11 @@ import MAE.Character;
 
 abstract class Player {
 
-	protected int damageGiven;
-	protected int damageTaken;
 	protected ArrayList <Character> team;
 	
 	protected GI_Battle playerInterface;
 
 	public Player( ) {
-		this.damageGiven = 0;
-		this.damageTaken = 0;
 	}
 
 	public void setInterface(GI_Battle playerInterface) {
@@ -24,13 +20,6 @@ abstract class Player {
 		return this.team;
 	}
 
-	public int getDamageGiven() {
-		return damageGiven;
-	}
-
-	public int getDamageTaken() {
-		return damageTaken;
-	}
 
 	public ArrayList<Character> getCharactersAlive() {
 		ArrayList <Character> charactersAlive = new ArrayList<Character>();

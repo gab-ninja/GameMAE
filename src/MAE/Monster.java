@@ -7,9 +7,16 @@ public class Monster extends Character {
 	
 	private static final int TIME_BEFORE_ATTACK = 1000;
 	private static final int TIME_AFTER_ATTACK = 2000;
+	
+	private final int coins;
 
-	public Monster(String name, Categories category, int healthMax, int attackMin, int attackMax, String imgName) {
+	public Monster(String name, Categories category, int healthMax, int attackMin, int attackMax, String imgName, int coins) {
 		super(name, category, healthMax, attackMin, attackMax, imgName, true);
+		this.coins = coins;
+	}
+	
+	public int getCoins() {
+		return this.coins;
 	}
 
 	@Override

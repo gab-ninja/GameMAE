@@ -52,8 +52,8 @@ public class GI_Battle implements Runnable {
 	}
 	
 	public void msgbox(String s){
-		   JOptionPane.showMessageDialog(null, s);
-		}
+	   JOptionPane.showMessageDialog(null, s);
+	}
 	
 	public void setHuman(Human human) {
 		this.human = human;

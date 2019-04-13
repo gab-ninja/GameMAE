@@ -3,8 +3,8 @@ package MAE;
 public class Avenger extends Monster {
 	private static final double PROB_CONVERT_TO_HEAL = 0.2;
 
-	public Avenger(String name, Categories category, int healthMax, int attackMin, int attackMax, String imgName) {
-		super(name, category, healthMax, attackMin, attackMax, imgName);
+	public Avenger(String name, Categories category, int healthMax, int attackMin, int attackMax, String imgName, int coins) {
+		super(name, category, healthMax, attackMin, attackMax, imgName, coins);
 	}
 	
 	@Override

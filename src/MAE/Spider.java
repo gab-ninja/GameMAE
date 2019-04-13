@@ -3,8 +3,8 @@ package MAE;
 public class Spider extends Monster {
 	private static final int MAX_TURNS_TO_POISON = 3; 
 	
-	public Spider(String name, Categories category, int healthMax, int attackMin, int attackMax, String imgName) {
-		super(name, category, healthMax, attackMin, attackMax, imgName);
+	public Spider(String name, Categories category, int healthMax, int attackMin, int attackMax, String imgName, int coins) {
+		super(name, category, healthMax, attackMin, attackMax, imgName, coins);
 	}
 
 	@Override
