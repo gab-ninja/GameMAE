@@ -6,6 +6,7 @@ import MAE.Character;
 
 public class Human extends Player {
 	private String name;
+	private ArrayList<Item> items = new ArrayList<Item>();
 	
 	public Human(ArrayList<Character> characters, String name) {
 		super();
@@ -26,6 +27,14 @@ public class Human extends Player {
 
 	public String getName() {
 		return name;
+	}
+	
+	public boolean hasItems() {
+		return !this.items.isEmpty();
+	}
+	
+	public ArrayList<Item> getItems() {
+		return this.items;
 	}
 
 	public void setName(String name) {

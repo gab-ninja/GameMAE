@@ -8,6 +8,8 @@ import javax.swing.border.Border;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class GI_Battle implements Runnable {
 
@@ -39,9 +41,14 @@ public class GI_Battle implements Runnable {
 	private Image fainted = new ImageIcon(this.getClass().getResource("/fainted.png")).getImage();
 	
 	private Hero hero;
+	private JButton btnNewButton;
 
 	public GI_Battle(Game game) {
 		initialize();		
+	}
+	
+	public void setVisibility(boolean visibility) {
+		frame.setVisible(visibility);
 	}
 	
 	public void msgbox(String s){
@@ -140,6 +147,10 @@ public class GI_Battle implements Runnable {
 				this.isActiveBtnHeroes[i] = true;
 			}
 		}
+	}
+	
+	public Hero askForHero() {
+		return (Hero) this.heroes.get(0);
 	}
 	
 	public void updateStats() {
@@ -342,6 +353,23 @@ public class GI_Battle implements Runnable {
 		lblPlayingHuman.setForeground(Color.ORANGE);
 		lblPlayingHuman.setBounds(100, 428, 91, 34);
 		lblPlayingHuman.setVisible(false);
+		
+		btnNewButton = new JButton("Items");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (!human.hasItems()) {
+					msgbox("You don't have any item");
+					return;
+				}
+				Thread t1 = new Thread(new GI_PickList(human.getItems()));
+		        t1.start();
+			}
+		});
+		btnNewButton.setForeground(new Color(0, 0, 0));
+		btnNewButton.setFont(new Font("Arial", Font.BOLD, 16));
+		btnNewButton.setBackground(new Color(222, 184, 135));
+		btnNewButton.setBounds(12, 354, 207, 45);
+		frame.getContentPane().add(btnNewButton);
 		frame.getContentPane().add(lblPlayingHuman);
 		
 		lblPlayingCPU = new JLabel("(Playing)");
@@ -472,6 +500,7 @@ public class GI_Battle implements Runnable {
 			}
 		}
 	}
+	
 
 	@Override
 	public void run() {

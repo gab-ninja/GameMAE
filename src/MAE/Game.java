@@ -8,8 +8,9 @@ public class Game {
 	//TODO: 
 	// Items 
 	// - pocao para aumentar vida 
-	// - pocao aumentar attaque 
+	// - pocao aumentar ataque 
 	// - revive a 100%
+	// - congelar a janela enquanto se escolhe os items
 	
 	public final CountDownLatch latch = new CountDownLatch(1);
 	
@@ -24,6 +25,7 @@ public class Game {
 	private GI_Battle playerInterface;
 	
 	private boolean hasReceivedCharacters;
+	private boolean hasFinishedShopping;
 	
 	
 	public Game() {
@@ -71,7 +73,6 @@ public class Game {
         	this.playerInterface.setHumanStatus("All heroes were revived");
         }
         this.playerInterface.closeWindow();
-        // System.out.println("Game finished...");
         
 	}
 	
@@ -92,8 +93,7 @@ public class Game {
 		this.human.updateHeroes();
 		
 		while(true) {
-			Collections.shuffle(this.order);	
-			// System.out.println("ORDER: " + order);
+			Collections.shuffle(this.order);
 			for (Character character : order) {
 				this.playerInterface.updateStats();
 				if (!human.hasCharactersAlive()) {
@@ -107,11 +107,27 @@ public class Game {
 				        t2.start();
 					} else {
 						this.playerInterface.msgbox("The heroes defeated the monsters on this level and are now resting for the next one");
+						this.playerInterface.setVisibility(false);
+						Thread tStore = new Thread(new GI_Store(this));
+						tStore.start();
+						this.hasFinishedShopping = false;
+						while (!this.hasFinishedShopping) {
+					        try {
+								Thread.sleep(500);
+							} catch (InterruptedException e) {
+								e.printStackTrace();
+							}
+						}
+						this.playerInterface.setVisibility(true);
 					}
 					return false;
 				}
 				character.play(this.playerInterface);
 			}	
 		}	
+	}
+	
+	public void updateFromStore() {
+		this.hasFinishedShopping = true;
 	}
 };

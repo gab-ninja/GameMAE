@@ -141,6 +141,12 @@ abstract class Character {
 		this.attackMin *= (1 - lower);
 	}
 	
+	public void increaseAttack(int increase) {
+		this.attackMax += increase;
+		this.attackMin += increase;
+	}
+	
+	
 	@Override
 	public String toString() {
 		return (this.isPoisoned() ? "(P) " : " ")  + this.name + " - " + (this.isAlive() ? this.health + "/" + this.healthMax + " HP" : "FAINTED");
