@@ -12,7 +12,4 @@ public class Rogue extends Hero {
 		defender.poison((int) Math.random() * MAX_TURNS_TO_POISON + 1);
 		return (super.attack(defender, playerInterface) + " and also, poisoned it!");
 	}
-	
-	
-
 }

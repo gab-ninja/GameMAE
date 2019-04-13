@@ -4,13 +4,8 @@ import java.util.*;
 import MAE.Character;
 
 abstract class Player {
-
 	protected ArrayList <Character> team;
-	
 	protected GI_Battle playerInterface;
-
-	public Player( ) {
-	}
 
 	public void setInterface(GI_Battle playerInterface) {
 		this.playerInterface = playerInterface;
@@ -19,7 +14,6 @@ abstract class Player {
 	public ArrayList<Character> getTeam() {
 		return this.team;
 	}
-
 
 	public ArrayList<Character> getCharactersAlive() {
 		ArrayList <Character> charactersAlive = new ArrayList<Character>();
@@ -41,4 +35,4 @@ abstract class Player {
 	public void setTeam(ArrayList <Character> characters) {
 		this.team = characters;
 	}
-};
+}

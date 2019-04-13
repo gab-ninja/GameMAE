@@ -1,9 +1,6 @@
 package MAE;
 
-import java.util.ArrayList;
-
 public class ReviveAllPotion extends Item{
-	
 	public ReviveAllPotion(int price, String name, String image) {
 		super(price, name, image);
 	}
@@ -14,8 +11,5 @@ public class ReviveAllPotion extends Item{
 
 	@Override
 	public void receiveHero(Hero hero) {
-		// TODO Auto-generated method stub
-		
 	}
-
 }

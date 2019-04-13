@@ -1,7 +1,6 @@
 package MAE;
 
 public class Duelist extends Hero {
-
 	public Duelist(String name, Categories category, int healthMax, int attackMin, int attackMax, String imgName) {
 		super(name, category, healthMax, attackMin, attackMax, imgName);
 	}
@@ -20,6 +19,4 @@ public class Duelist extends Hero {
 			playerInterface.setHumanStatus(this.name + " is now unblocked and free to play");
 		}
 	}
-
-	
 }

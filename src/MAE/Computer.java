@@ -46,7 +46,7 @@ public class Computer extends Player {
 			}
 		}
 						
-		int numOfMonsters = level>2 ? 4 : 3;
+		int numOfMonsters = level > 2 ? 4 : 3;
 		int[] cpuTeam = au.randomNonRepetitive(numOfMonsters, characters.size());
 		
 		for (int i=0; i<cpuTeam.length; i++) {
@@ -55,7 +55,6 @@ public class Computer extends Player {
 		this.setTeam(team);
 		this.playerInterface.loadMonsters(this.team);
 		return this.team;
-		
 	}
 	
 	public ArrayList<Character> getCharactersToAttack() {

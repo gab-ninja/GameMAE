@@ -14,6 +14,4 @@ public class Monk extends Hero {
 		}
 		return "On an amazing move, " + this.name + " doged the attack from " + attacker.name + " completely";
 	}
-
-	
 }

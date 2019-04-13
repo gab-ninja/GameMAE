@@ -1,6 +1,5 @@
 package MAE;
 
-
 public class Hero extends Character {
 	private Character monsterToAttack;
 	
@@ -39,7 +38,4 @@ public class Hero extends Character {
 		this.attackMax = Heroes.valueOf(this.name).getMaxAttack();
 		this.attackMin = Heroes.valueOf(this.name).getMinAttack();
 	}
-	
-	
-	
 }

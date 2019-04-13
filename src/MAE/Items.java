@@ -1,7 +1,7 @@
 package MAE;
 
 public enum Items {
-	Revive_100 (CategoriesItems.RevivePotion, 15, "/i1.png", 100),
+	Revive_100 (CategoriesItems.RevivePotion, 150, "/i1.png", 100),
 	Attack_40 (CategoriesItems.AttackPotion, 200, "/i2.png",40),
 	Revive_All (CategoriesItems.ReviveAll, 400, "/i3.png",0);
 
@@ -28,7 +28,5 @@ public enum Items {
 			default:
 				return new AttackPotion(this.price, this.name(), this.imgName, this.variable);
 		}
-
 	}
-
 }

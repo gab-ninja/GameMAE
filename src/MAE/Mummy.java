@@ -1,7 +1,6 @@
 package MAE;
 
 public class Mummy extends Monster {
-	
 	private boolean canPlay;
 
 	public Mummy(String name, Categories category, int healthMax, int attackMin, int attackMax, String imgName, int coins) {
@@ -16,7 +15,4 @@ public class Mummy extends Monster {
 		}
 		this.canPlay = !this.canPlay;
 	}
-	
-	
-
 }

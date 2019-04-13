@@ -1,8 +1,6 @@
 package MAE;
 
-import java.awt.EventQueue;
 import java.util.ArrayList;
-
 import javax.swing.JFrame;
 import javax.swing.JList;
 import java.awt.Font;

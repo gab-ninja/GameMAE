@@ -1,7 +1,5 @@
 package MAE;
 
-import java.util.ArrayList;
-
 public class AttackPotion extends Item{
 	private int benefit;
 	private Hero hero;

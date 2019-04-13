@@ -1,7 +1,7 @@
 package MAE;
 
 public class Berserker extends Hero {
-	private static final int HEAL_WHEN_FINISH = 40;
+	private static final int HEAL_WHEN_FINISH = 80;
 
 	public Berserker(String name, Categories category, int healthMax, int attackMin, int attackMax, String imgName) {
 		super(name, category, healthMax, attackMin, attackMax, imgName);
@@ -17,8 +17,5 @@ public class Berserker extends Hero {
 					  (this.health - initialHealth) + "HP's";
 		}
 		return attack;
-	}
-
-	
-	
+	}	
 }

@@ -1,25 +1,18 @@
 package MAE;
 
 import java.util.*;
-import java.util.concurrent.CountDownLatch;
 
 public class Game {	
-	public final CountDownLatch latch = new CountDownLatch(1);
-	
 	private final int NUMBER_OF_LEVELS = 5;
 	
 	private ArrayList <Character> order = new ArrayList <Character>();
 	private ArrayList <Item> items = new ArrayList <Item>();
-	
 	private Computer cpu;
 	private Human human;
 	private String playerName;
-	
 	private GI_Battle playerInterface;
-	
 	private boolean hasReceivedCharacters;
 	private boolean hasFinishedShopping;
-	
 	
 	public Game() {
 		this.playerName = "";

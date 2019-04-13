@@ -1,8 +1,6 @@
 package MAE;
 
 import java.awt.Cursor;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -40,10 +38,6 @@ public class GI_Store implements Runnable {
 	
 	public void msgbox(String s){
 	   JOptionPane.showMessageDialog(null, s);
-	}
-	
-	private void cardClick(int card) {
-		System.out.println(card);
 	}
 
 	private void initialize() {

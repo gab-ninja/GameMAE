@@ -1,22 +1,21 @@
 package MAE;
 
-import java.awt.Image;
-
 abstract class Character {
+	protected static final int POISON_DAMAGE = 20;
+	protected static final int MAX_TURNS_POISON = 3;
+	private static final double PERCENTAGE_AFTER_FAINTED = 0.25;
+	
+	protected Categories category;
 	protected String name;
+	protected String imgName;
 	protected int attackMin;
 	protected int attackMax;
 	protected int health;
-	protected Categories category;
+	protected int poison;
 	protected int healthMax;
 	protected boolean isMonster;
-	protected int poison;
-	protected String imgName;
-	
 	protected boolean canPlay;
 	
-	protected static final int POISON_DAMAGE = 20;
-
 	public Character(String name, Categories category, int healthMax, int attackMin, int attackMax, String imgName, boolean isMonster) {
 		super();
 		this.name = name;
@@ -30,7 +29,6 @@ abstract class Character {
 		this.imgName = imgName;
 		this.canPlay = true;
 	}
-	
 	
 	public Categories getCategory() {
 		return this.category;
@@ -60,7 +58,6 @@ abstract class Character {
 		return this.imgName;
 	}
 
-	
 	public boolean isMonster() {
 		return this.isMonster;
 	}
@@ -81,7 +78,6 @@ abstract class Character {
 		return this.poison > 0;
 	}
 	
-	
 	public abstract void play(GI_Battle playerInterface);
 	
 	public void block() {
@@ -94,7 +90,7 @@ abstract class Character {
 
 	public void revive() {
 		if (this.health == 0 && !this.isMonster) {
-			this.health = this.healthMax / 4;
+			this.health = (int) (this.healthMax * PERCENTAGE_AFTER_FAINTED);
 		} else {
 			this.health = this.healthMax;
 		}
@@ -121,7 +117,7 @@ abstract class Character {
 	}
 	
 	public void poison (int turns) {
-		this.poison = this.poison + turns >= 3 ? 3 : this.poison + turns;
+		this.poison = this.poison + turns >= MAX_TURNS_POISON ? MAX_TURNS_POISON : this.poison + turns;
 	}
 
 	public String attack(Character defender, GI_Battle playerInterface) {
@@ -148,11 +144,8 @@ abstract class Character {
 		this.attackMin += increase;
 	}
 	
-	
 	@Override
 	public String toString() {
 		return (this.isPoisoned() ? "(P) " : " ")  + this.name + " - " + (this.isAlive() ? this.health + "/" + this.healthMax + " HP" : "FAINTED");
 	}
-	
-
 };

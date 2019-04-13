@@ -1,7 +1,6 @@
 package MAE;
 
 public class Cleric extends Hero {
-
 	private Hero heroToHeal;
 	
 	public Cleric(String name, Categories category, int healthMax, int attackMin, int attackMax, String imgName) {
@@ -28,7 +27,6 @@ public class Cleric extends Hero {
 
 	@Override
 	public void play(GI_Battle playerInterface) {
-		// System.out.println("cleric is playing");
 		playerInterface.setHumanPlaying(this);
 		if (this.canPlay && this.isAlive()) {
 			this.heroToHeal = null;
@@ -50,7 +48,4 @@ public class Cleric extends Hero {
 	public void setHeroToHeal(Hero hero) {
 		this.heroToHeal = hero;
 	}
-	
-	
-
 }

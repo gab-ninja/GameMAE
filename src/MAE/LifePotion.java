@@ -1,7 +1,5 @@
 package MAE;
 
-import java.util.ArrayList;
-
 public class LifePotion extends Item{
 	private int heal;
 	private Hero hero;

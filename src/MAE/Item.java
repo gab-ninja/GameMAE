@@ -1,7 +1,5 @@
 package MAE;
 
-import java.util.ArrayList;
-
 public abstract class Item {
 	protected int price;
 	protected String name;
@@ -33,6 +31,4 @@ public abstract class Item {
 	public String toString() {
 		return name;
 	}
-	
-	
 }

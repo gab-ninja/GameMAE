@@ -504,7 +504,6 @@ public class GI_Battle implements Runnable {
 		}
 	}
 	
-
 	@Override
 	public void run() {
 		frame.setVisible(true);

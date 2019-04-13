@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class Monster extends Character {
-	
 	private static final int TIME_BEFORE_ATTACK = 1000;
 	private static final int TIME_AFTER_ATTACK = 2000;
 	
