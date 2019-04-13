@@ -17,6 +17,7 @@ public class GI_Battle implements Runnable {
 	
 	private Human human;
 	private Computer cpu;
+	private Game game;
 	
 	private ArrayList <Character> heroes;
 	private Image[] heroImages = new Image[4];
@@ -44,6 +45,7 @@ public class GI_Battle implements Runnable {
 	private JButton btnNewButton;
 
 	public GI_Battle(Game game) {
+		this.game = game;
 		initialize();		
 	}
 	
@@ -147,10 +149,6 @@ public class GI_Battle implements Runnable {
 				this.isActiveBtnHeroes[i] = true;
 			}
 		}
-	}
-	
-	public Hero askForHero() {
-		return (Hero) this.heroes.get(0);
 	}
 	
 	public void updateStats() {
@@ -361,7 +359,7 @@ public class GI_Battle implements Runnable {
 					msgbox("You don't have any item");
 					return;
 				}
-				Thread t1 = new Thread(new GI_PickList(human.getItems()));
+				Thread t1 = new Thread(new GI_PickList(human.getItems(), game));
 		        t1.start();
 			}
 		});

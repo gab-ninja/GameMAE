@@ -7,6 +7,8 @@ public class Game {
 	
 	//TODO: 
 	// rearranjar ordem de monstros
+	// retirar os items depois de usados
+	// mudar precos dos items
 	
 	public final CountDownLatch latch = new CountDownLatch(1);
 	
@@ -130,6 +132,14 @@ public class Game {
 				character.play(this.playerInterface);
 			}	
 		}	
+	}
+	
+	public Human getHuman() {
+		return this.human;
+	}
+	
+	public GI_Battle getInterface() {
+		return this.playerInterface;
 	}
 	
 	public void updateFromStore() {

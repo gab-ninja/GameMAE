@@ -55,6 +55,10 @@ public class Human extends Player {
 	public ArrayList<Item> getItems() {
 		return this.items;
 	}
+	
+	public void removeItem(Item item) {
+		this.items.remove(item);
+	}
 
 	public void setName(String name) {
 		this.name = name;

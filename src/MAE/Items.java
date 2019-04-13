@@ -1,9 +1,9 @@
 package MAE;
 
 public enum Items {
-	Revive (CategoriesItems.RevivePotion, 5, "/i1.png", 100),
-	Attack (CategoriesItems.AttackPotion, 5, "/i2.png",40),
-	All (CategoriesItems.ReviveAll, 500, "/i3.png",0);
+	Revive_100 (CategoriesItems.RevivePotion, 5, "/i1.png", 100),
+	Attack_40 (CategoriesItems.AttackPotion, 5, "/i2.png",40),
+	Revive_All (CategoriesItems.ReviveAll, 50, "/i3.png",0);
 
 	private final CategoriesItems category;
 	private final int price;

@@ -134,7 +134,14 @@ public class GI_Store implements Runnable {
 		item2.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				cardClick(2);
+				if (human.getBudget() < items.get(1).getPrice()) {
+					msgbox("Insuficient founds to buy this item");
+					return;
+				}
+				human.takeCoins(items.get(1).getPrice());
+				human.addItems(items.get(1));
+				label_1.setText(String.valueOf(Collections.frequency(human.getItems(), items.get(1))));
+				label_2.setText(String.valueOf(human.getBudget()));
 			}
 		});
 		item2.setHorizontalAlignment(SwingConstants.CENTER);
@@ -148,7 +155,14 @@ public class GI_Store implements Runnable {
 		item3.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				cardClick(3);
+				if (human.getBudget() < items.get(2).getPrice()) {
+					msgbox("Insuficient founds to buy this item");
+					return;
+				}
+				human.takeCoins(items.get(2).getPrice());
+				label_2.setText(String.valueOf(human.getBudget()));
+				items.get(2).execute(game);
+				msgbox("On the next level all the heroes start with the maximum health");
 			}
 		});
 		item3.setHorizontalAlignment(SwingConstants.CENTER);

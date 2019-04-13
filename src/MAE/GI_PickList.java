@@ -17,12 +17,28 @@ public class GI_PickList implements Runnable {
 
 	private JFrame frame;
 	private ArrayList<Item> potions = new ArrayList<Item>();
+	private ArrayList<Character> heroes = new ArrayList<Character>();
+	private boolean pickHeroes;
+	private JList list;
+	private Game game;
+	private Item item;
 	
-	public GI_PickList(ArrayList<Item> potions) {
-		this.potions = potions;
+	public GI_PickList(ArrayList<Item> arr, Game game) {
+		this.potions = arr;	
+		this.game = game;
+		this.pickHeroes = false;
 		initialize();
 	}
-
+	
+	public GI_PickList(ArrayList<Character> arr, Item item) {
+		System.out.println("Opened new window");
+		this.heroes = arr;	
+		this.item = item;
+		this.pickHeroes = true;
+		initialize();
+		System.out.println("New window initialized");
+	}
+	
 	private void initialize() {		
 		frame = new JFrame();
 		frame.setResizable(false);
@@ -31,18 +47,19 @@ public class GI_PickList implements Runnable {
 		frame.setLocationRelativeTo(null);
 		frame.getContentPane().setLayout(null);
 		
-		JList list = new JList(potions.toArray());
+		
+		list = new JList(pickHeroes ? heroes.toArray() : potions.toArray());
 		list.setFont(new Font("Arial", Font.PLAIN, 14));
 		list.setBounds(56, 112, 257, 128);
 		frame.getContentPane().add(list);
 		
-		JLabel lblItems = new JLabel("Items");
+		JLabel lblItems = new JLabel(pickHeroes ? "Heroes" : "Items");
 		lblItems.setHorizontalAlignment(SwingConstants.CENTER);
 		lblItems.setFont(new Font("Arial", Font.BOLD, 18));
 		lblItems.setBounds(56, 13, 257, 34);
 		frame.getContentPane().add(lblItems);
 		
-		JLabel lblSelectTheItem = new JLabel("<html><p>Select the item you want to use and then press \"Use\" </p></html>");
+		JLabel lblSelectTheItem = new JLabel("<html><p>Select which do you want to use and then press \"Use\" </p></html>");
 		lblSelectTheItem.setHorizontalAlignment(SwingConstants.CENTER);
 		lblSelectTheItem.setFont(new Font("Arial", Font.PLAIN, 14));
 		lblSelectTheItem.setBounds(56, 46, 257, 53);
@@ -62,8 +79,18 @@ public class GI_PickList implements Runnable {
 		JButton btnUse = new JButton("Use");
 		btnUse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//TODO code for executing potion
 				frame.dispose();
+				System.out.println(list.getSelectedIndex());
+				if (pickHeroes) {
+					new Thread(() -> {
+						item.receiveHero((Hero) heroes.get(list.getSelectedIndex()));
+					}).start();
+				} else {
+					new Thread(() -> {
+						potions.get(list.getSelectedIndex()).execute(game);
+						game.getHuman().removeItem(item);
+					}).start();
+				}
 			}
 		});
 		btnUse.setBackground(Color.WHITE);
@@ -75,6 +102,6 @@ public class GI_PickList implements Runnable {
 	@Override
 	public void run() {
 		frame.setVisible(true);
-		
+		System.out.println("New window runnign");
 	}
 }
